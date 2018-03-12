@@ -20,6 +20,7 @@ class ListTableViewController: BaseViewController,UITableViewDelegate, UITableVi
     var items:[CartItem] = []
     let ref = Database.database().reference(withPath: "cart-items")
     
+    @IBOutlet weak var clear: UIButton!
     override func viewDidLoad() {
         super.viewDidLoad()
         addSlideMenuButton()
@@ -40,6 +41,7 @@ class ListTableViewController: BaseViewController,UITableViewDelegate, UITableVi
         })
     }
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        
         return items.count
     }
     
@@ -79,6 +81,18 @@ class ListTableViewController: BaseViewController,UITableViewDelegate, UITableVi
             cell.accessoryType = .checkmark
             cell.textLabel?.textColor = UIColor.gray
         }
+    }
+    @IBAction func clearPressed(_ sender: UIButton) {
+        let alertView = UIAlertController(title: "Clear all?", message: "Do you really want to clear all items from your cart?", preferredStyle: .alert)
+        alertView.addAction(UIAlertAction(title: "No", style: .default, handler: nil))
+        alertView.addAction(UIAlertAction(title: "Clear", style: .destructive, handler: { (alertAction) -> Void in
+            self.isEditing = !self.isEditing
+            self.items.removeAll()
+            self.tableView.reloadData()
+            self.ref.removeValue()
+        }))
+        present(alertView, animated: true, completion: nil)
+ 
     }
 }
 

@@ -57,7 +57,6 @@ class LoginViewController: UIViewController,UITextFieldDelegate{
             self.present(alertController, animated: true, completion: nil)
             
         } else {
-            
             Auth.auth().signIn(withEmail: self.emailTextField.text!, password: self.passwordTextField.text!) { (user, error) in
                 
                 if error == nil {

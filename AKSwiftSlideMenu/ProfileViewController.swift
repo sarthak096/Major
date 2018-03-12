@@ -11,11 +11,18 @@ import Firebase
 
 class ProfileViewController: BaseViewController{
     
+    @IBOutlet weak var mobile: UILabel!
+    @IBOutlet weak var email: UILabel!
+    @IBOutlet weak var name: UILabel!
     @IBOutlet weak var logOut: UIButton!
+  
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         addSlideMenuButton()
-    }
+        logOut.layer.cornerRadius = 0.08 * logOut.bounds.size.width
+        logOut.clipsToBounds = true
+          }
     
     @IBAction func logoutAction(_ sender: Any) {
         // unauth() is the logout method for the current user.
@@ -41,5 +48,7 @@ class ProfileViewController: BaseViewController{
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
     }
+    
+  
 }
 

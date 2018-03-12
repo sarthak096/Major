@@ -22,8 +22,6 @@ class SignUpViewController : UIViewController,UITextFieldDelegate{
     // @IBOutlet weak var resetPassword: UIButton!
     @IBOutlet weak var signUp: UIButton!
     
-    
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         firstName.delegate = self
@@ -78,11 +76,28 @@ class SignUpViewController : UIViewController,UITextFieldDelegate{
                 in
                 if error == nil{
                     print("You have successfully signed up")
-                    let userData = ["name":self.firstName,"mobile":self.mobileNum]
-                    let ref = Database.database().reference()
+                    let name = self.firstName.text
+                    let mobile = self.mobileNum.text
+                    let userData = ["name":name,"mobile":mobile]
+                    
+                    let ref = Database.database().reference(fromURL: "https://demoapp-a3463.firebaseio.com/")
+                    guard (user?.uid) != nil else {
+                        return
+                    }
                     ref.child("users").child(user!.uid).setValue(userData)
                     let vc = self.storyboard?.instantiateViewController(withIdentifier: "abc")
-                    self.present(vc!, animated: true, completion: nil)
+                    self.present(vc!, animated: true, completion: nil)/*
+                    let userID = Auth.auth().currentUser?.uid
+                    ref.child("users").child(userID!).observeSingleEvent(of: .value, with: { (snapshot) in
+                        // Get user value
+                        let value = snapshot.value as? NSDictionary
+                        let username = value?["userData"] as? String ?? ""
+                        let user = User(username: userData)
+                        
+                        // ...
+                    }) { (error) in
+                        print(error.localizedDescription)
+                    }*/
                 }
                 else{
                     let alertController = UIAlertController(title: "Error", message: error?.localizedDescription, preferredStyle: .alert)
