@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>AD_UNIT_ID_FOR_BANNER_TEST</key>
+	<string>ca-app-pub-3940256099942544/2934735716</string>
+	<key>AD_UNIT_ID_FOR_INTERSTITIAL_TEST</key>
+	<string>ca-app-pub-3940256099942544/4411468910</string>
+	<key>CLIENT_ID</key>
+	<string>377338768721-75uer0gq6asss4imqq2cho1emhl64ts4.apps.googleusercontent.com</string>
+	<key>REVERSED_CLIENT_ID</key>
+	<string>com.googleusercontent.apps.377338768721-75uer0gq6asss4imqq2cho1emhl64ts4</string>
+	<key>API_KEY</key>
+	<string>AIzaSyCt5V2Kouj3wAsbQ4ZbO6T9nVs_-3Nb-yk</string>
+	<key>GCM_SENDER_ID</key>
+	<string>377338768721</string>
+	<key>PLIST_VERSION</key>
+	<string>1</string>
+	<key>BUNDLE_ID</key>
+	<string>com.sarthak</string>
+	<key>PROJECT_ID</key>
+	<string>demoapp-a3463</string>
+	<key>STORAGE_BUCKET</key>
+	<string>demoapp-a3463.appspot.com</string>
+	<key>IS_ADS_ENABLED</key>
+	<true></true>
+	<key>IS_ANALYTICS_ENABLED</key>
+	<false></false>
+	<key>IS_APPINVITE_ENABLED</key>
+	<false></false>
+	<key>IS_GCM_ENABLED</key>
+	<true></true>
+	<key>IS_SIGNIN_ENABLED</key>
+	<true></true>
+	<key>GOOGLE_APP_ID</key>
+	<string>1:377338768721:ios:d4640a0d3b47da55</string>
+	<key>DATABASE_URL</key>
+	<string>https://demoapp-a3463.firebaseio.com</string>
+</dict>
+</plist>
