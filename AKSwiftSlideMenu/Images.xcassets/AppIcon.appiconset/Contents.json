@@ -33,19 +33,19 @@
     {
       "size" : "60x60",
       "idiom" : "iphone",
-      "filename" : "appimage.png",
+      "filename" : "app120.png",
       "scale" : "2x"
     },
     {
       "size" : "60x60",
       "idiom" : "iphone",
-      "filename" : "appimage-1.png",
+      "filename" : "app180.png",
       "scale" : "3x"
     },
     {
       "size" : "1024x1024",
       "idiom" : "ios-marketing",
-      "filename" : "appimage-2.png",
+      "filename" : "app1024.png",
       "scale" : "1x"
     }
   ],
