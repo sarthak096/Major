@@ -9,20 +9,29 @@
 import UIKit
 import Firebase
 
+protocol ProfileViewControllerDelegate: class {
+    
+    func textChanged(text:String?)
+    
+}
 class ProfileViewController: BaseViewController{
     
     @IBOutlet weak var mobile: UILabel!
     @IBOutlet weak var email: UILabel!
     @IBOutlet weak var name: UILabel!
     @IBOutlet weak var logOut: UIButton!
-  
-    
+    var username = abc.globalVariable.userName;
+
+     let ref = Database.database().reference(fromURL: "https://demoapp-a3463.firebaseio.com/data")
+   
     override func viewDidLoad() {
         super.viewDidLoad()
         addSlideMenuButton()
         logOut.layer.cornerRadius = 0.08 * logOut.bounds.size.width
         logOut.clipsToBounds = true
-          }
+        name.text = username
+        
+    }
     
     @IBAction func logoutAction(_ sender: Any) {
         // unauth() is the logout method for the current user.
@@ -51,4 +60,3 @@ class ProfileViewController: BaseViewController{
     
   
 }
-

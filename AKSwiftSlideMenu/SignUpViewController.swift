@@ -11,8 +11,9 @@ import Firebase
 import FirebaseAuth
 
 
+
 class SignUpViewController : UIViewController,UITextFieldDelegate{
-    
+  
     @IBOutlet weak var emailTextField: UITextField!
     
     @IBOutlet weak var passwordTextField: UITextField!
@@ -21,6 +22,7 @@ class SignUpViewController : UIViewController,UITextFieldDelegate{
     @IBOutlet weak var firstName: UITextField!
     // @IBOutlet weak var resetPassword: UIButton!
     @IBOutlet weak var signUp: UIButton!
+
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -60,6 +62,7 @@ class SignUpViewController : UIViewController,UITextFieldDelegate{
         return true
     }
     
+ 
     @IBAction func createAccountAction(_ sender: Any) {
         // let appDelegateTemp = UIApplication.shared.delegate as? AppDelegate
         //  appDelegateTemp?.window?.rootViewController = UIStoryboard(name: "Main", bundle: //Bundle.main).instantiateInitialViewController()
@@ -85,19 +88,13 @@ class SignUpViewController : UIViewController,UITextFieldDelegate{
                         return
                     }
                     ref.child("users").child(user!.uid).setValue(userData)
+                    
+                    let ItemRef = ref.child(name!)
+                    var new1 = ItemRef
                     let vc = self.storyboard?.instantiateViewController(withIdentifier: "abc")
-                    self.present(vc!, animated: true, completion: nil)/*
-                    let userID = Auth.auth().currentUser?.uid
-                    ref.child("users").child(userID!).observeSingleEvent(of: .value, with: { (snapshot) in
-                        // Get user value
-                        let value = snapshot.value as? NSDictionary
-                        let username = value?["userData"] as? String ?? ""
-                        let user = User(username: userData)
-                        
-                        // ...
-                    }) { (error) in
-                        print(error.localizedDescription)
-                    }*/
+                    abc.globalVariable.userName = self.firstName.text!;
+                    let new = self.storyboard?.instantiateViewController(withIdentifier: "Profile") as! ProfileViewController
+                    self.present(vc!, animated: true, completion: nil)
                 }
                 else{
                     let alertController = UIAlertController(title: "Error", message: error?.localizedDescription, preferredStyle: .alert)
@@ -114,4 +111,4 @@ class SignUpViewController : UIViewController,UITextFieldDelegate{
         super.didReceiveMemoryWarning()
     }
 }
-
+ 
