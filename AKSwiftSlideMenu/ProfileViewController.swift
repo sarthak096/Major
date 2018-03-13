@@ -22,15 +22,29 @@ class ProfileViewController: BaseViewController{
     @IBOutlet weak var logOut: UIButton!
     var username = abc.globalVariable.userName;
 
-     let ref = Database.database().reference(fromURL: "https://demoapp-a3463.firebaseio.com/data")
-   
+    let ref = Database.database().reference()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         addSlideMenuButton()
         logOut.layer.cornerRadius = 0.08 * logOut.bounds.size.width
         logOut.clipsToBounds = true
-        name.text = username
-        
+        let user = Auth.auth().currentUser
+        //ref.child("users").child(user!.uid).setValue(userData)
+        ref.child("users").child(user!.uid).observeSingleEvent(of: .value, with: { DataSnapshot in
+            if !DataSnapshot.exists(){
+                print("hello1")
+                return
+            }
+            print("Hello")
+            print("hello")
+            let userDict = DataSnapshot.value as! [String: Any]
+            let uname = userDict["name"] as! String
+            let contact = userDict["mobile"] as! String
+            //print("email: \(email)  yetki: \(yetki)")
+            self.name.text = uname
+            self.mobile.text = contact
+        })
     }
     
     @IBAction func logoutAction(_ sender: Any) {
@@ -60,3 +74,4 @@ class ProfileViewController: BaseViewController{
     
   
 }
+
