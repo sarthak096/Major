@@ -8,6 +8,7 @@
 
 import UIKit
 import Firebase
+import ChameleonFramework
 
 protocol ProfileViewControllerDelegate: class {
     
@@ -27,6 +28,8 @@ class ProfileViewController: BaseViewController{
     override func viewDidLoad() {
         super.viewDidLoad()
         addSlideMenuButton()
+       // let colors:[UIColor] = [UIColor.flatRed,UIColor.flatWhite]
+       // view.backgroundColor = GradientColor(.topToBottom, frame: view.frame, colors: colors)
         logOut.layer.cornerRadius = 0.1 * logOut.bounds.size.width
         logOut.clipsToBounds = true
         let user = Auth.auth().currentUser

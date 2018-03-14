@@ -13,8 +13,8 @@
         <!--View Controller-->
         <scene sceneID="zYH-Pp-cMu">
             <objects>
-                <viewController id="iCI-r9-GtE" sceneMemberID="viewController">
-                    <view key="view" contentMode="scaleToFill" id="tsW-gO-gQ2">
+                <viewController modalTransitionStyle="crossDissolve" id="iCI-r9-GtE" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" semanticContentAttribute="spatial" id="tsW-gO-gQ2">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>

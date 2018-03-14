@@ -20,14 +20,30 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         // Override point for customization after application launch.
         FirebaseApp.configure()
         Database.database().isPersistenceEnabled = true
-        if Auth.auth().currentUser !== nil{
-            let rootController = UIStoryboard(name: "Main", bundle: Bundle.main).instantiateViewController(withIdentifier: "abc")
+        let launchedBefore = UserDefaults.standard.bool(forKey: "Signup")
+        if launchedBefore  {
+            print("hi")
+            if Auth.auth().currentUser !== nil{
+                let rootController = UIStoryboard(name: "Main", bundle: Bundle.main).instantiateViewController(withIdentifier: "abc")
+                self.window?.rootViewController = rootController
+            }
+            else if Auth.auth().currentUser == nil {
+                let rootController = UIStoryboard(name: "Main", bundle: Bundle.main).instantiateViewController(withIdentifier: "SignUp")
+                self.window?.rootViewController = rootController
+            }
+        } else {
+            do {
+                try Auth.auth().signOut()
+            } catch {
+                
+            }
+            print("lll")
+            let rootController = UIStoryboard(name: "Main", bundle: Bundle.main).instantiateViewController(withIdentifier: "ad")
             self.window?.rootViewController = rootController
+            UserDefaults.standard.set(true, forKey: "Signup")
+            UserDefaults.standard.synchronize()
         }
-        else if Auth.auth().currentUser == nil {
-            let rootController = UIStoryboard(name: "Main", bundle: Bundle.main).instantiateViewController(withIdentifier: "SignUp")
-            self.window?.rootViewController = rootController
-        }
+   
         return true
     }
 
@@ -51,15 +67,21 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func applicationWillTerminate(_ application: UIApplication) {
         // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
+
     }
 
     func applicationDidFinishLaunching(_ application: UIApplication) {
         Thread.sleep(forTimeInterval : 4.0)
     }
     func application(_ application: UIApplication, performActionFor shortcutItem: UIApplicationShortcutItem, completionHandler: @escaping (Bool) -> Void) {
-        let rootController = UIStoryboard(name: "Main", bundle: Bundle.main).instantiateViewController(withIdentifier: "abc")
-        self.window?.rootViewController = rootController
+        if Auth.auth().currentUser !== nil{
+            let rootController = UIStoryboard(name: "Main", bundle: Bundle.main).instantiateViewController(withIdentifier: "abc")
+            self.window?.rootViewController = rootController
+        }
+        else if Auth.auth().currentUser == nil {
+            let rootController = UIStoryboard(name: "Main", bundle: Bundle.main).instantiateViewController(withIdentifier: "SignUp")
+            self.window?.rootViewController = rootController
+        }
     }
 
 }
-

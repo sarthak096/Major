@@ -11,5 +11,6 @@ pod 'Firebase/Database'
 pod 'Firebase/Core'
 pod 'Firebase/Auth'
 pod 'BWWalkthrough'
+pod 'ChameleonFramework/Swift', :git => 'https://github.com/ViccAlexander/Chameleon.git'
 
 end

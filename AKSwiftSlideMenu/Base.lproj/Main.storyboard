@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14101" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="DGj-7d-jfR">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14101" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="get-ov-Qhj">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
@@ -291,7 +291,7 @@
                                 <state key="normal" image="Close"/>
                                 <connections>
                                     <action selector="close:" destination="PlF-EV-cnt" eventType="touchUpInside" id="3TG-Ty-NYv"/>
-                                    <segue destination="DGj-7d-jfR" kind="show" id="dUG-GO-66C"/>
+                                    <segue destination="g6w-vD-p2W" kind="show" id="8x9-Y9-oJp"/>
                                 </connections>
                             </button>
                         </subviews>
@@ -345,23 +345,7 @@
                     <view key="view" contentMode="scaleToFill" id="Ukn-Bi-zRT">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <subviews>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="vLr-XA-au3">
-                                <rect key="frame" x="116" y="315.5" width="143" height="36"/>
-                                <fontDescription key="fontDescription" name="Avenir-Book" family="Avenir" pointSize="17"/>
-                                <state key="normal" title="Show Walkthrough">
-                                    <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                </state>
-                                <connections>
-                                    <action selector="presentWalkthrough" destination="get-ov-Qhj" eventType="touchUpInside" id="5yr-5j-0Ry"/>
-                                </connections>
-                            </button>
-                        </subviews>
                         <color key="backgroundColor" red="0.0039215686269999999" green="0.1450980392" blue="0.2274509804" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                        <constraints>
-                            <constraint firstItem="vLr-XA-au3" firstAttribute="centerX" secondItem="Ukn-Bi-zRT" secondAttribute="centerX" id="Bp7-T0-wo9"/>
-                            <constraint firstItem="vLr-XA-au3" firstAttribute="centerY" secondItem="Ukn-Bi-zRT" secondAttribute="centerY" id="bXx-BT-Tx4"/>
-                        </constraints>
                         <viewLayoutGuide key="safeArea" id="NT5-ZA-mrr"/>
                     </view>
                 </viewController>
@@ -927,13 +911,6 @@
                                 <color key="textColor" red="1" green="0.14913141730000001" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Address :" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Vhn-xh-B08">
-                                <rect key="frame" x="15" y="409" width="96" height="24"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <fontDescription key="fontDescription" name="AmericanTypewriter-Semibold" family="American Typewriter" pointSize="20"/>
-                                <color key="textColor" red="1" green="0.14913141730000001" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                <nil key="highlightedColor"/>
-                            </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="7ZN-cP-ZoK">
                                 <rect key="frame" x="125" y="159" width="250" height="38"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
@@ -974,6 +951,6 @@
         <image name="newappicon" width="246" height="246"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="2ne-zt-WAb"/>
+        <segue reference="8x9-Y9-oJp"/>
     </inferredMetricsTieBreakers>
 </document>
