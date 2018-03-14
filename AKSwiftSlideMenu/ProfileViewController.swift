@@ -27,7 +27,7 @@ class ProfileViewController: BaseViewController{
     override func viewDidLoad() {
         super.viewDidLoad()
         addSlideMenuButton()
-        logOut.layer.cornerRadius = 0.08 * logOut.bounds.size.width
+        logOut.layer.cornerRadius = 0.1 * logOut.bounds.size.width
         logOut.clipsToBounds = true
         let user = Auth.auth().currentUser
         //ref.child("users").child(user!.uid).setValue(userData)
@@ -41,6 +41,8 @@ class ProfileViewController: BaseViewController{
             let userDict = DataSnapshot.value as! [String: Any]
             let uname = userDict["name"] as! String
             let contact = userDict["mobile"] as! String
+            let email = Auth.auth().currentUser?.email
+            self.email.text = email
             //print("email: \(email)  yetki: \(yetki)")
             self.name.text = uname
             self.mobile.text = contact
