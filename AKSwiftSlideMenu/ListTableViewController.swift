@@ -19,11 +19,14 @@ class ListTableViewController: BaseViewController,UITableViewDelegate, UITableVi
     @IBOutlet var tableView: UITableView!
     var items:[CartItem] = []
     let ref = Database.database().reference(withPath: "cart-items")
+    var openpayment: PaymentViewController?
     
     @IBOutlet weak var clear: UIButton!
     override func viewDidLoad() {
         super.viewDidLoad()
         addSlideMenuButton()
+        
+         openpayment = self.storyboard!.instantiateViewController(withIdentifier: "Payment") as? PaymentViewController
         
         tableView.delegate = self
         tableView.dataSource = self
@@ -93,6 +96,17 @@ class ListTableViewController: BaseViewController,UITableViewDelegate, UITableVi
         }))
         present(alertView, animated: true, completion: nil)
  
+    }
+    @IBAction func checkoutPressed(_ sender: UIButton) {
+        
+        openpayment?.openedpayment = { (barcode: String) in
+            _ = self.navigationController?.popViewController(animated: true)
+            //print("Received following barcode: \(barcode)")
+        }
+        if let openpayment = self.openpayment{
+            self.navigationController?.pushViewController(openpayment, animated: true)
+        }
+        
     }
 }
 

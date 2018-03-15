@@ -9,7 +9,7 @@
 import UIKit
 import Firebase
 import FirebaseAuth
-
+import ChameleonFramework
 
 
 class SignUpViewController : UIViewController,UITextFieldDelegate{
@@ -26,6 +26,8 @@ class SignUpViewController : UIViewController,UITextFieldDelegate{
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        let colors:[UIColor] = [UIColor.flatRedDark,UIColor.flatOrange]
+        view.backgroundColor = GradientColor(.topToBottom, frame: view.frame, colors: colors)
         firstName.delegate = self
         mobileNum.delegate = self
         emailTextField.delegate = self
@@ -37,9 +39,13 @@ class SignUpViewController : UIViewController,UITextFieldDelegate{
         mobileNum.returnKeyType = UIReturnKeyType.next
         passwordTextField.tag = 4
         firstName.tag = 0
-      
         mobileNum.tag = 2
         signUp.tag = 5
+        
+        //let colors:[UIColor] = [UIColor.flatWhite,UIColor.flatRedDark]
+        //view.backgroundColor = GradientColor(.radial, frame: view.frame, colors: colors)
+        
+ 
     }
     
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
@@ -64,8 +70,6 @@ class SignUpViewController : UIViewController,UITextFieldDelegate{
     
  
     @IBAction func createAccountAction(_ sender: Any) {
-        // let appDelegateTemp = UIApplication.shared.delegate as? AppDelegate
-        //  appDelegateTemp?.window?.rootViewController = UIStoryboard(name: "Main", bundle: //Bundle.main).instantiateInitialViewController()
         
         if emailTextField.text! == "" || firstName.text! == "" || mobileNum.text! == "" || passwordTextField.text! == ""{
             let alertController = UIAlertController(title: "Sorry", message: "Please fill in all the details.", preferredStyle: .alert)
@@ -89,8 +93,6 @@ class SignUpViewController : UIViewController,UITextFieldDelegate{
                     }
                     ref.child("users").child(user!.uid).setValue(userData)
                     
-                    let ItemRef = ref.child(name!)
-                    var new1 = ItemRef
                     let vc = self.storyboard?.instantiateViewController(withIdentifier: "abc")
                     abc.globalVariable.userName = self.firstName.text!;
                     let new = self.storyboard?.instantiateViewController(withIdentifier: "Profile") as! ProfileViewController

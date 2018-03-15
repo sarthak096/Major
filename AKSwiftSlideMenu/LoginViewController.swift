@@ -10,7 +10,7 @@
 import UIKit
 import Firebase
 import FirebaseAuth
-
+import ChameleonFramework
 
 class LoginViewController: UIViewController,UITextFieldDelegate{
     
@@ -21,6 +21,8 @@ class LoginViewController: UIViewController,UITextFieldDelegate{
     @IBOutlet weak var passwordTextField: UITextField!
     override func viewDidLoad() {
         super.viewDidLoad()
+        let colors:[UIColor] = [UIColor.flatRedDark,UIColor.flatOrange]
+        view.backgroundColor = GradientColor(.topToBottom, frame: view.frame, colors: colors)
         emailTextField.delegate = self
         passwordTextField.delegate = self
         emailTextField.tag = 0

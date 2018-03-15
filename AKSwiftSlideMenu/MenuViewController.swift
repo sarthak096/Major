@@ -58,7 +58,7 @@ class MenuViewController: UIViewController, UITableViewDataSource, UITableViewDe
     func updateArrayMenuOptions(){
         arrayMenuOptions.append(["title":"Scan", "icon":"menuscan"])
         arrayMenuOptions.append(["title":"Cart", "icon":"shopcart"])
-        arrayMenuOptions.append(["title":"Profile", "icon":""])
+        arrayMenuOptions.append(["title":"Profile", "icon":"Profile"])
         
         tblMenuOptions.reloadData()
     }

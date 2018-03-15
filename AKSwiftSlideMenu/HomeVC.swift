@@ -21,6 +21,7 @@ class HomeVC: BaseViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         addSlideMenuButton()
+        self.setStatusBarStyle(UIStatusBarStyleContrast)
         barcodeScanner = self.storyboard!.instantiateViewController(withIdentifier: "ScanNGoViewControllerScene") as?ScanNGoViewController
         scanButton.layer.cornerRadius = 0.2 * scanButton.bounds.size.width
         scanButton.clipsToBounds = true

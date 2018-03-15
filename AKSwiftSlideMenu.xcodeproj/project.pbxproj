@@ -14,10 +14,11 @@
 		0837B6032053FA85008D699D /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0837B6022053FA85008D699D /* LoginViewController.swift */; };
 		0837B6052053FAB0008D699D /* SignUpViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0837B6042053FAB0008D699D /* SignUpViewController.swift */; };
 		0837B6072053FC29008D699D /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0837B6062053FC29008D699D /* LaunchScreen.storyboard */; };
-		0837B60920542DFB008D699D /* ProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0837B60820542DFB008D699D /* ProfileViewController.swift */; };
 		0837B60B20542ED5008D699D /* CartItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0837B60A20542ED5008D699D /* CartItem.swift */; };
 		0837B60D20542FC4008D699D /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 0837B60C20542FC3008D699D /* GoogleService-Info.plist */; };
 		0837B60E20543608008D699D /* ListTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6EEF9F51CB7E2AD00A3DC6D /* ListTableViewController.swift */; };
+		0848102F205A6A40005A1851 /* ProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0837B60820542DFB008D699D /* ProfileViewController.swift */; };
+		08481031205A6A82005A1851 /* PaymentViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0848102D205A49EC005A1851 /* PaymentViewController.swift */; };
 		08F5A4792057922B00400A6C /* abc.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08F5A4782057922B00400A6C /* abc.swift */; };
 		753A55C31BB073E900254F27 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 753A55C21BB073E900254F27 /* AppDelegate.swift */; };
 		753A55C81BB073E900254F27 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 753A55C61BB073E900254F27 /* Main.storyboard */; };
@@ -39,6 +40,7 @@
 		0837B60820542DFB008D699D /* ProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileViewController.swift; sourceTree = "<group>"; };
 		0837B60A20542ED5008D699D /* CartItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CartItem.swift; sourceTree = "<group>"; };
 		0837B60C20542FC3008D699D /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		0848102D205A49EC005A1851 /* PaymentViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PaymentViewController.swift; sourceTree = "<group>"; };
 		08F5A4782057922B00400A6C /* abc.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = abc.swift; sourceTree = "<group>"; };
 		16E1A1D021124B9917F3FFC5 /* Pods-AKSwiftSlideMenu.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-AKSwiftSlideMenu.release.xcconfig"; path = "Pods/Target Support Files/Pods-AKSwiftSlideMenu/Pods-AKSwiftSlideMenu.release.xcconfig"; sourceTree = "<group>"; };
 		753A55BD1BB073E900254F27 /* AKSwiftSlideMenu.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = AKSwiftSlideMenu.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -114,6 +116,7 @@
 				0837B60820542DFB008D699D /* ProfileViewController.swift */,
 				0837B60A20542ED5008D699D /* CartItem.swift */,
 				08F5A4782057922B00400A6C /* abc.swift */,
+				0848102D205A49EC005A1851 /* PaymentViewController.swift */,
 			);
 			path = AKSwiftSlideMenu;
 			sourceTree = "<group>";
@@ -277,6 +280,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				08481031205A6A82005A1851 /* PaymentViewController.swift in Sources */,
+				0848102F205A6A40005A1851 /* ProfileViewController.swift in Sources */,
 				08F5A4792057922B00400A6C /* abc.swift in Sources */,
 				0837B60E20543608008D699D /* ListTableViewController.swift in Sources */,
 				0837B6052053FAB0008D699D /* SignUpViewController.swift in Sources */,
@@ -284,7 +289,6 @@
 				0837B5FD2053C249008D699D /* MainViewController.swift in Sources */,
 				0837B5FB2053C225008D699D /* ViewController.swift in Sources */,
 				753A55E51BB0755100254F27 /* BaseViewController.swift in Sources */,
-				0837B60920542DFB008D699D /* ProfileViewController.swift in Sources */,
 				C6EEF9F81CB7E4E000A3DC6D /* HomeVC.swift in Sources */,
 				0837B6012053D6E3008D699D /* ScanNGoViewController.swift in Sources */,
 				753A55E31BB0753B00254F27 /* MenuViewController.swift in Sources */,
