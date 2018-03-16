@@ -26,13 +26,16 @@ class ListTableViewController: BaseViewController,UITableViewDelegate, UITableVi
         super.viewDidLoad()
         addSlideMenuButton()
         
+        NotificationCenter.default.addObserver(self, selector: #selector(loadList), name: NSNotification.Name(rawValue: "load"), object: nil)
+        
          openpayment = self.storyboard!.instantiateViewController(withIdentifier: "Payment") as? PaymentViewController
+        
+       // checkOut.layer.cornerRadius = 0.04 * checkOut.bounds.size.width
+      //  checkOut.clipsToBounds = true
         
         tableView.delegate = self
         tableView.dataSource = self
         
-        checkOut.layer.cornerRadius = 0.2 * checkOut.bounds.size.width
-        tableView.allowsMultipleSelectionDuringEditing = false
         ref.queryOrdered(byChild: "completed").observe(.value,with:{snapshot in
             var newItems: [CartItem] = []
             for item in snapshot.children {
@@ -43,8 +46,28 @@ class ListTableViewController: BaseViewController,UITableViewDelegate, UITableVi
             self.tableView.reloadData()
         })
     }
+    @objc func loadList(){
+        //load data here
+        self.isEditing = !self.isEditing
+        self.items.removeAll()
+        self.tableView.reloadData()
+        self.ref.removeValue()
+    }
+    
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        
+    
+        if items.count > 0 {
+            tableView.backgroundView = nil
+            tableView.separatorStyle = .singleLine
+        }
+        else {
+            let noDataLabel: UILabel     = UILabel(frame: CGRect(x: 0, y: 0, width: tableView.bounds.size.width, height: tableView.bounds.size.height))
+            noDataLabel.text          = "No items"
+            noDataLabel.textColor     = UIColor.black
+            noDataLabel.textAlignment = .center
+            tableView.backgroundView  = noDataLabel
+            tableView.separatorStyle  = .none
+        }
         return items.count
     }
     

@@ -31,17 +31,23 @@ class BaseViewController: UIViewController, SlideMenuDelegate {
             
             break
         case 1:
-            print("Play\n", terminator: "")
+            print("Cart\n", terminator: "")
             
             self.openViewControllerBasedOnIdentifier("Cart")
             
             break
         case 2:
-            print("Play\n", terminator: "")
+            print("Orders\n", terminator: "")
+            
+            self.openViewControllerBasedOnIdentifier("Orders")
+            break
+        case 3:
+            print("Profile\n", terminator: "")
             
             self.openViewControllerBasedOnIdentifier("Profile")
             
             break
+      
         default:
             print("default\n", terminator: "")
         }

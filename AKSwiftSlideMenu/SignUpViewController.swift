@@ -34,7 +34,7 @@ class SignUpViewController : UIViewController,UITextFieldDelegate{
         passwordTextField.delegate = self
         emailTextField.tag = 3
         emailTextField.returnKeyType = UIReturnKeyType.next
-        passwordTextField.returnKeyType = UIReturnKeyType.next
+        passwordTextField.returnKeyType = UIReturnKeyType.done
         firstName.returnKeyType = UIReturnKeyType.next
         mobileNum.returnKeyType = UIReturnKeyType.next
         passwordTextField.tag = 4

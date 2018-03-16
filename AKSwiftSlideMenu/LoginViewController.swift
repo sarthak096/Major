@@ -27,7 +27,7 @@ class LoginViewController: UIViewController,UITextFieldDelegate{
         passwordTextField.delegate = self
         emailTextField.tag = 0
         emailTextField.returnKeyType = UIReturnKeyType.next
-        passwordTextField.returnKeyType = UIReturnKeyType.next
+        passwordTextField.returnKeyType = UIReturnKeyType.done
         passwordTextField.tag = 1
         login.tag = 2
     }

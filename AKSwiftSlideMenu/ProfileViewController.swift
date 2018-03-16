@@ -15,19 +15,36 @@ protocol ProfileViewControllerDelegate: class {
     func textChanged(text:String?)
     
 }
-class ProfileViewController: BaseViewController{
+class ProfileViewController: BaseViewController,UITextFieldDelegate{
     
-    @IBOutlet weak var mobile: UILabel!
-    @IBOutlet weak var email: UILabel!
-    @IBOutlet weak var name: UILabel!
     @IBOutlet weak var logOut: UIButton!
+    @IBOutlet weak var editBtn: UIBarButtonItem!
+    @IBOutlet weak var userName: UITextField!
+    @IBOutlet weak var userContact: UITextField!
+    @IBOutlet weak var userEmail: UITextField!
+    @IBOutlet weak var userAddress: UITextField!
+    
+    var editTextFieldToggle: Bool = false
     var username = abc.globalVariable.userName;
-
     let ref = Database.database().reference()
     
     override func viewDidLoad() {
         super.viewDidLoad()
         addSlideMenuButton()
+        
+        userName.delegate = self
+        userContact.delegate = self
+        userEmail.delegate = self
+        userAddress.delegate = self
+        userName.tag = 0
+        userContact.tag = 1
+        userEmail.tag = 2
+        userAddress.tag = 3
+        userName.returnKeyType = UIReturnKeyType.next
+        userContact.returnKeyType = UIReturnKeyType.next
+        userEmail.returnKeyType = UIReturnKeyType.next
+        userAddress.returnKeyType = UIReturnKeyType.done
+        
        // let colors:[UIColor] = [UIColor.flatRed,UIColor.flatWhite]
        // view.backgroundColor = GradientColor(.topToBottom, frame: view.frame, colors: colors)
         logOut.layer.cornerRadius = 0.1 * logOut.bounds.size.width
@@ -36,21 +53,69 @@ class ProfileViewController: BaseViewController{
         //ref.child("users").child(user!.uid).setValue(userData)
         ref.child("users").child(user!.uid).observeSingleEvent(of: .value, with: { DataSnapshot in
             if !DataSnapshot.exists(){
-                print("hello1")
                 return
             }
-            print("Hello")
-            print("hello")
             let userDict = DataSnapshot.value as! [String: Any]
             let uname = userDict["name"] as! String
             let contact = userDict["mobile"] as! String
             let email = Auth.auth().currentUser?.email
-            self.email.text = email
-            //print("email: \(email)  yetki: \(yetki)")
-            self.name.text = uname
-            self.mobile.text = contact
+            self.userEmail.text = email
+            self.userName.text = uname
+            self.userContact.text = contact
         })
     }
+    
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        
+        if textField == userName {
+            textField.resignFirstResponder()
+            userContact.becomeFirstResponder()
+        }else if textField == userContact {
+            textField.resignFirstResponder()
+            userEmail.becomeFirstResponder()
+        } else if textField == userEmail{
+            textField.resignFirstResponder()
+             userAddress.becomeFirstResponder()
+        }else if textField == userAddress{
+            textField.resignFirstResponder()
+        }
+        return true
+    }
+    
+    @IBAction func editPressed(_ sender: UIBarButtonItem) {
+        editTextFieldToggle = !editTextFieldToggle
+        if editTextFieldToggle == true {
+            navigationItem.rightBarButtonItem = editBtn
+            let edit = UIBarButtonItem(title: "Save", style: .plain, target: self, action: #selector(editPressed(_:)))
+            navigationItem.rightBarButtonItem = edit
+            textFieldActive()
+            
+        } else {
+            navigationItem.rightBarButtonItem = editBtn
+            let edit = UIBarButtonItem(title: "Edit", style: .plain, target: self, action: #selector(editPressed(_:)))
+            navigationItem.rightBarButtonItem = edit
+            textFieldDeactive()
+            
+        }
+    }
+    
+    func textFieldActive(){
+
+        userName.isUserInteractionEnabled = true
+        userName.becomeFirstResponder()
+        userContact.isUserInteractionEnabled = true
+        userEmail.isUserInteractionEnabled = true
+        userAddress.isUserInteractionEnabled = true
+    }
+    
+    func textFieldDeactive(){
+
+        userName.isUserInteractionEnabled = false
+        userContact.isUserInteractionEnabled = false
+        userEmail.isUserInteractionEnabled = false
+        userAddress.isUserInteractionEnabled = false
+    }
+
     
     @IBAction func logoutAction(_ sender: Any) {
         // unauth() is the logout method for the current user.
