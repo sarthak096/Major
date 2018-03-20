@@ -9,7 +9,8 @@
 
 import UIKit
 import AVFoundation
-import FirebaseDatabase
+import Firebase
+import CoreData
 
 class ScanNGoViewController: UIViewController, AVCaptureMetadataOutputObjectsDelegate{
     
@@ -24,8 +25,8 @@ class ScanNGoViewController: UIViewController, AVCaptureMetadataOutputObjectsDel
     var videoPreviewLayer: AVCaptureVideoPreviewLayer?
     var qrCodeFrameView: UIView?
     var captureDevice: AVCaptureDevice?
-    
-    let ref = Database.database().reference(withPath: "cart-items")
+    let vc = ListTableViewController()
+   // let ref = Database.database().reference(withPath: "cart-items")
     
     
     
@@ -184,7 +185,7 @@ class ScanNGoViewController: UIViewController, AVCaptureMetadataOutputObjectsDel
                 }
             }
             let cancelAction = UIAlertAction(title: "Add", style: .default) { (alert: UIAlertAction!) -> Void in
-                
+                /*
                 // 2
                 let cartItem = CartItem(name: metadataObj.stringValue!,
                                         completed: false)
@@ -193,6 +194,11 @@ class ScanNGoViewController: UIViewController, AVCaptureMetadataOutputObjectsDel
                 
                 // 4
                 cartItemRef.setValue(cartItem.toAnyObject())
+                */
+                
+                let nameToSave = metadataObj.stringValue!
+                self.save(itemname: nameToSave)
+                 NotificationCenter.default.post(name: NSNotification.Name(rawValue: "load"), object: nil)
                 
                 self.newView?.appDone = { (barcode: String) in
                     _ = self.navigationController?.popViewController(animated: true)
@@ -216,6 +222,31 @@ class ScanNGoViewController: UIViewController, AVCaptureMetadataOutputObjectsDel
     public override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
     }
+    
+    func save(itemname: String) {
+        guard let appDelegate = UIApplication.shared.delegate as? AppDelegate else {
+            return
+        }
+        
+        let managedContext = appDelegate.persistentContainer.viewContext
+        
+        let entity = NSEntityDescription.entity(forEntityName: "Cartdata",
+                                                in: managedContext)!
+        
+        let cartname = NSManagedObject(entity: entity,
+                                     insertInto: managedContext)
+        
+        cartname.setValue(itemname, forKeyPath: "itemname")
+        
+        do {
+            try managedContext.save()
+            vc.pcart.append(cartname)
+        } catch let error as NSError {
+            print("Could not save. \(error), \(error.userInfo)")
+        }
+    }
+    
+    
 }
 
 

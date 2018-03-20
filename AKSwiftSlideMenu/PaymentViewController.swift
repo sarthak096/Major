@@ -35,12 +35,12 @@ class PaymentViewController: UIViewController {
     @IBAction func cashSelected(_ sender: UIButton) {
         
          let alert = UIAlertController(title: "Payment", message: "Confirm the selected payment method?", preferredStyle: .alert)
-          let cancelAction = UIAlertAction(title: "Cancel", style: .default) { (alert: UIAlertAction!) -> Void in
+          let cancelAction = UIAlertAction(title: "Cancel", style: .destructive) { (alert: UIAlertAction!) -> Void in
             
         }
-        let confirmAction = UIAlertAction(title: "Confirm", style: .destructive) { (alert: UIAlertAction!) -> Void in
+        let confirmAction = UIAlertAction(title: "Confirm", style: .default) { (alert: UIAlertAction!) -> Void in
             self.imgbarcode.image = self.img
-          NotificationCenter.default.post(name: NSNotification.Name(rawValue: "load"), object: nil)
+        //  NotificationCenter.default.post(name: NSNotification.Name(rawValue: "load"), object: nil)
             
         }
         alert.addAction(cancelAction)

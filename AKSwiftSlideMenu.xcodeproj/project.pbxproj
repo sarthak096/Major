@@ -20,6 +20,8 @@
 		0848102F205A6A40005A1851 /* ProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0837B60820542DFB008D699D /* ProfileViewController.swift */; };
 		08481031205A6A82005A1851 /* PaymentViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0848102D205A49EC005A1851 /* PaymentViewController.swift */; };
 		084E027A205ADCD6002C8E87 /* OrdersViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 084E0279205ADCD6002C8E87 /* OrdersViewController.swift */; };
+		08DBC4E3205CEEB3005E1E97 /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 08DBC4E2205CEEB3005E1E97 /* CoreData.framework */; };
+		08DBC4E6205CEEE9005E1E97 /* AKSwiftSlideMenu.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 08DBC4E4205CEEE9005E1E97 /* AKSwiftSlideMenu.xcdatamodeld */; };
 		08F5A4792057922B00400A6C /* abc.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08F5A4782057922B00400A6C /* abc.swift */; };
 		753A55C31BB073E900254F27 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 753A55C21BB073E900254F27 /* AppDelegate.swift */; };
 		753A55C81BB073E900254F27 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 753A55C61BB073E900254F27 /* Main.storyboard */; };
@@ -43,6 +45,8 @@
 		0837B60C20542FC3008D699D /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		0848102D205A49EC005A1851 /* PaymentViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PaymentViewController.swift; sourceTree = "<group>"; };
 		084E0279205ADCD6002C8E87 /* OrdersViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OrdersViewController.swift; sourceTree = "<group>"; };
+		08DBC4E2205CEEB3005E1E97 /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = System/Library/Frameworks/CoreData.framework; sourceTree = SDKROOT; };
+		08DBC4E5205CEEE9005E1E97 /* AKSwiftSlideMenu.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = AKSwiftSlideMenu.xcdatamodel; sourceTree = "<group>"; };
 		08F5A4782057922B00400A6C /* abc.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = abc.swift; sourceTree = "<group>"; };
 		16E1A1D021124B9917F3FFC5 /* Pods-AKSwiftSlideMenu.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-AKSwiftSlideMenu.release.xcconfig"; path = "Pods/Target Support Files/Pods-AKSwiftSlideMenu/Pods-AKSwiftSlideMenu.release.xcconfig"; sourceTree = "<group>"; };
 		753A55BD1BB073E900254F27 /* AKSwiftSlideMenu.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = AKSwiftSlideMenu.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -63,6 +67,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				08DBC4E3205CEEB3005E1E97 /* CoreData.framework in Frameworks */,
 				891FB49F3646B3E58F4C1AC8 /* Pods_AKSwiftSlideMenu.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -73,6 +78,7 @@
 		55991DF5D50019A2F81483F9 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				08DBC4E2205CEEB3005E1E97 /* CoreData.framework */,
 				FA51E244B98C4BB50108D54A /* Pods_AKSwiftSlideMenu.framework */,
 			);
 			name = Frameworks;
@@ -120,6 +126,7 @@
 				08F5A4782057922B00400A6C /* abc.swift */,
 				0848102D205A49EC005A1851 /* PaymentViewController.swift */,
 				084E0279205ADCD6002C8E87 /* OrdersViewController.swift */,
+				08DBC4E4205CEEE9005E1E97 /* AKSwiftSlideMenu.xcdatamodeld */,
 			);
 			path = AKSwiftSlideMenu;
 			sourceTree = "<group>";
@@ -291,6 +298,7 @@
 				0837B6052053FAB0008D699D /* SignUpViewController.swift in Sources */,
 				0837B5FF2053C26E008D699D /* MyCustomPageViewController.swift in Sources */,
 				0837B5FD2053C249008D699D /* MainViewController.swift in Sources */,
+				08DBC4E6205CEEE9005E1E97 /* AKSwiftSlideMenu.xcdatamodeld in Sources */,
 				0837B5FB2053C225008D699D /* ViewController.swift in Sources */,
 				753A55E51BB0755100254F27 /* BaseViewController.swift in Sources */,
 				C6EEF9F81CB7E4E000A3DC6D /* HomeVC.swift in Sources */,
@@ -475,6 +483,19 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCVersionGroup section */
+		08DBC4E4205CEEE9005E1E97 /* AKSwiftSlideMenu.xcdatamodeld */ = {
+			isa = XCVersionGroup;
+			children = (
+				08DBC4E5205CEEE9005E1E97 /* AKSwiftSlideMenu.xcdatamodel */,
+			);
+			currentVersion = 08DBC4E5205CEEE9005E1E97 /* AKSwiftSlideMenu.xcdatamodel */;
+			path = AKSwiftSlideMenu.xcdatamodeld;
+			sourceTree = "<group>";
+			versionGroupType = wrapper.xcdatamodel;
+		};
+/* End XCVersionGroup section */
 	};
 	rootObject = 753A55B51BB073E900254F27 /* Project object */;
 }
