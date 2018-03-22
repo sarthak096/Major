@@ -14,26 +14,24 @@ struct CartItem {
     let key: String
     let name: String
     let ref: DatabaseReference?
-    var completed: Bool
+   
     
     init(name: String, completed: Bool, key: String = ""){
         self.key = key
         self.name = name
-        self.completed = completed
         self.ref = nil
     }
     
     init(snapshot: DataSnapshot) {
         key = snapshot.key
         let snapshotValue = snapshot.value as! [String: AnyObject]
-        name = snapshotValue["name"] as! String
-        completed = snapshotValue["completed"] as! Bool
+        name = snapshotValue["item"] as! String
         ref = snapshot.ref
     }
     
     func toAnyObject() -> Any{
         return[
-            "name": name, "completed": completed]
+            "name": name]
     }
 }
 

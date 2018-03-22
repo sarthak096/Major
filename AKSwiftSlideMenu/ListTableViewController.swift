@@ -7,7 +7,7 @@
 //
 
 import UIKit
-import FirebaseDatabase
+import Firebase
 import CoreData
 
 
@@ -19,12 +19,13 @@ class ListTableViewController: BaseViewController,UITableViewDelegate, UITableVi
     @IBOutlet var tableView: UITableView!
     var tp:[String] = []
     var pcart: [NSManagedObject] = []
-    
-    var items:[String] = []
-    let ref = Database.database().reference().child("users").childByAutoId().child("cart")
+    //var items:[String] = []
     var openpayment: PaymentViewController?
     @IBOutlet weak var clear: UIButton!
     var new : String = ""
+    var id:String = (Auth.auth().currentUser?.uid)!
+    var ref: DatabaseReference!
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -36,25 +37,13 @@ class ListTableViewController: BaseViewController,UITableViewDelegate, UITableVi
         tableView.delegate = self
         tableView.dataSource = self
         tableView.allowsSelection = false
-        /*
-        ref.queryOrdered(byChild: "completed").observe(.value,with:{snapshot in
-            var newItems: [CartItem] = []
-            for item in snapshot.children {
-                let cartItem = CartItem(snapshot: item as! DataSnapshot)
-                newItems.append(cartItem)
-            }
-            self.items = newItems
-
-            self.tableView.reloadData()
-        })
-         */
+        ref = Database.database().reference()
+        
     }
+    
     @objc func loadList(){
-        //load data here
         self.isEditing = !self.isEditing
-       // self.items.removeAll()
        self.tableView.reloadData()
-      //  self.ref.removeValue()
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -147,21 +136,25 @@ class ListTableViewController: BaseViewController,UITableViewDelegate, UITableVi
          print(tp)
     }
     
+    func clearCart(){
+        self.isEditing = !self.isEditing
+        for index in self.pcart{
+            guard let appDelegate = UIApplication.shared.delegate as? AppDelegate else{
+                return
+            }
+            let managedContext = appDelegate.persistentContainer.viewContext
+            print(self.pcart.count)
+            managedContext.delete(index)
+        }
+        self.pcart.removeAll()
+        self.tableView.reloadData()
+    }
+    
     @IBAction func clearPressed(_ sender: UIButton) {
         let alertView = UIAlertController(title: "Clear all?", message: "Do you really want to clear all items from your cart?", preferredStyle: .alert)
         alertView.addAction(UIAlertAction(title: "No", style: .destructive, handler: nil))
         alertView.addAction(UIAlertAction(title: "Clear", style: .default, handler: { (alertAction) -> Void in
-            self.isEditing = !self.isEditing
-            for index in self.pcart{
-                guard let appDelegate = UIApplication.shared.delegate as? AppDelegate else{
-                    return
-                }
-                let managedContext = appDelegate.persistentContainer.viewContext
-            print(self.pcart.count)
-            managedContext.delete(index)
-            }
-            self.pcart.removeAll()
-            self.tableView.reloadData()
+            self.clearCart()
         }))
         present(alertView, animated: true, completion: nil)
     }
@@ -180,19 +173,23 @@ class ListTableViewController: BaseViewController,UITableViewDelegate, UITableVi
             alertnew.addAction(UIAlertAction(title: "No", style: .destructive, handler: { (alertAction) -> Void in
             }))
             alertnew.addAction(UIAlertAction(title: "Yes", style: .default, handler: { (alertAction) -> Void in
+                self.clearCart()
+                let new = NSArray(array: self.tp)
+                var time = String(Date().ticks)
                 
-           
-                /*
-                 // 2
-                 let cartItem = CartItem(name: metadataObj.stringValue!,
-                 completed: false)
-                 // 3
-                 let cartItemRef = self.ref.child(metadataObj.stringValue!.lowercased())
-                 
-                 // 4
-                 cartItemRef.setValue(cartItem.toAnyObject())
-                 */
-                
+                self.ref.child("users").child(self.id).child("orders").childByAutoId().setValue(["item":new])
+            
+                let qref = self.ref.child("users").child(self.id).child("orders").queryOrderedByKey()
+                var tt = ""
+                qref.observeSingleEvent(of: .value, with: { (snapshot) in
+                    for snap in snapshot.children{
+                        let usersnap = snap as! DataSnapshot
+                        tt = usersnap.key
+                    }
+                    print(tt)
+                    self.ref.child("users").child(self.id).child("orders").child(tt).child("time").setValue(Date().ticks)
+                })
+                print(self.tp.count)
                 self.openpayment?.openedpayment = { (barcode: String) in
                     _ = self.navigationController?.popViewController(animated: true)
                 }
@@ -237,5 +234,11 @@ class ListTableViewController: BaseViewController,UITableViewDelegate, UITableVi
     }
     
 }
+extension Date {
+    var ticks: UInt64 {
+        return UInt64((self.timeIntervalSince1970 + 62_135_596_800) * 10_000_000)
+    }
+}
+
 
 

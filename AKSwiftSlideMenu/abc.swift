@@ -11,5 +11,6 @@ import Foundation
 class abc {
     struct globalVariable {
         static var userName = String();
+        static var getid = String();
     }
 }

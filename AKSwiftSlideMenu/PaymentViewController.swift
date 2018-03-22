@@ -9,7 +9,7 @@
 import UIKit
 import Firebase
 
-class PaymentViewController: UIViewController {
+class PaymentViewController:BaseViewController {
     
     @IBOutlet weak var payonlinebtn: UIButton!
     @IBOutlet weak var cashbtn: UIButton!
@@ -19,6 +19,7 @@ class PaymentViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        addSlideMenuButton()
         cashbtn.layer.cornerRadius = 0.1 * cashbtn.bounds.size.width
         cashbtn.clipsToBounds = true
         payonlinebtn.layer.cornerRadius = 0.1 * payonlinebtn.bounds.size.width
@@ -41,6 +42,9 @@ class PaymentViewController: UIViewController {
         let confirmAction = UIAlertAction(title: "Confirm", style: .default) { (alert: UIAlertAction!) -> Void in
             self.imgbarcode.image = self.img
         //  NotificationCenter.default.post(name: NSNotification.Name(rawValue: "load"), object: nil)
+            
+            
+            
             
         }
         alert.addAction(cancelAction)

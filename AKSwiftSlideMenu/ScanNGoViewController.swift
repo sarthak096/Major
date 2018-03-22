@@ -26,9 +26,7 @@ class ScanNGoViewController: UIViewController, AVCaptureMetadataOutputObjectsDel
     var qrCodeFrameView: UIView?
     var captureDevice: AVCaptureDevice?
     let vc = ListTableViewController()
-   // let ref = Database.database().reference(withPath: "cart-items")
-    
-    
+   
     
     @IBAction func zoomPinch(_ sender: UIPinchGestureRecognizer) {
         
@@ -148,6 +146,7 @@ class ScanNGoViewController: UIViewController, AVCaptureMetadataOutputObjectsDel
     public override func viewDidLayoutSubviews() {
         //
     }
+    
     public override func didRotate(from fromInterfaceOrientation: UIInterfaceOrientation) {
         videoPreviewLayer?.frame = videoView.layer.bounds
     }
@@ -161,7 +160,6 @@ class ScanNGoViewController: UIViewController, AVCaptureMetadataOutputObjectsDel
         }
         
         let metadataObj = metadataObjects[0] as! AVMetadataMachineReadableCodeObject
-        //guard let codeValue = metadataObj.stringValue else{return}
         let barCodeObject = videoPreviewLayer?.transformedMetadataObject(for: metadataObj as AVMetadataMachineReadableCodeObject) as! AVMetadataMachineReadableCodeObject;
         qrCodeFrameView!.frame = barCodeObject.bounds;
         
@@ -185,17 +183,6 @@ class ScanNGoViewController: UIViewController, AVCaptureMetadataOutputObjectsDel
                 }
             }
             let cancelAction = UIAlertAction(title: "Add", style: .default) { (alert: UIAlertAction!) -> Void in
-                /*
-                // 2
-                let cartItem = CartItem(name: metadataObj.stringValue!,
-                                        completed: false)
-                // 3
-                let cartItemRef = self.ref.child(metadataObj.stringValue!.lowercased())
-                
-                // 4
-                cartItemRef.setValue(cartItem.toAnyObject())
-                */
-                
                 let nameToSave = metadataObj.stringValue!
                 self.save(itemname: nameToSave)
                  NotificationCenter.default.post(name: NSNotification.Name(rawValue: "load"), object: nil)
