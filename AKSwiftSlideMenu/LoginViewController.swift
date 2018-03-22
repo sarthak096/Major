@@ -47,8 +47,8 @@ class LoginViewController: UIViewController,UITextFieldDelegate{
     }
     @IBAction func loginAction(_ sender: UIButton) {
         if self.emailTextField.text == "" || self.passwordTextField.text == "" {
-            let appDelegateTemp = UIApplication.shared.delegate as? AppDelegate
-            appDelegateTemp?.window?.rootViewController = UIStoryboard(name: "Main", bundle: Bundle.main).instantiateInitialViewController()
+            /*let appDelegateTemp = UIApplication.shared.delegate as? AppDelegate
+            appDelegateTemp?.window?.rootViewController = UIStoryboard(name: "Main", bundle: Bundle.main).instantiateInitialViewController()*/
             
             
             let alertController = UIAlertController(title: "Error", message: "Please enter an email and password.", preferredStyle: .alert)

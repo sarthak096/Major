@@ -200,7 +200,7 @@ class ScanNGoViewController: UIViewController, AVCaptureMetadataOutputObjectsDel
             alert.addAction(cancelAction)
             
             present(alert, animated: true, completion:nil)
-            messageLabel?.text = metadataObj.stringValue
+           // messageLabel?.text = metadataObj.stringValue
             captureSession?.stopRunning()
         }
     }

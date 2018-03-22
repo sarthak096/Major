@@ -44,8 +44,7 @@ class SignUpViewController : UIViewController,UITextFieldDelegate{
         
         //let colors:[UIColor] = [UIColor.flatWhite,UIColor.flatRedDark]
         //view.backgroundColor = GradientColor(.radial, frame: view.frame, colors: colors)
-        
- 
+       
     }
     
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
@@ -68,11 +67,23 @@ class SignUpViewController : UIViewController,UITextFieldDelegate{
         return true
     }
     
- 
+    func isNameValidInput(Input:String) -> Bool {
+        let myCharSet=CharacterSet(charactersIn:"abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ")
+        let output: String = Input.trimmingCharacters(in: myCharSet.inverted)
+        let isValid: Bool = (Input == output)
+        return isValid
+    }
+    func isNumberValidInput(Input:String) -> Bool {
+        let myCharSet=CharacterSet(charactersIn:"0123456789")
+        let output: String = Input.trimmingCharacters(in: myCharSet.inverted)
+        let isValid: Bool = (Input == output)
+        return isValid
+    }
+    
     @IBAction func createAccountAction(_ sender: Any) {
         
-        if emailTextField.text! == "" || firstName.text! == "" || mobileNum.text! == "" || passwordTextField.text! == ""{
-            let alertController = UIAlertController(title: "Sorry", message: "Please fill in all the details.", preferredStyle: .alert)
+        if emailTextField.text! == "" || firstName.text! == "" || mobileNum.text! == "" || passwordTextField.text! == "" || isNameValidInput(Input: firstName.text!) == false || isNumberValidInput(Input: mobileNum.text!) == false{
+            let alertController = UIAlertController(title: "Sorry", message: "Please fill in all the details correctly.", preferredStyle: .alert)
             let defaultAction = UIAlertAction(title: "OK",style: .cancel, handler: nil)
             alertController.addAction(defaultAction)
             
