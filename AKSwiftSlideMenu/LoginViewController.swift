@@ -14,24 +14,28 @@ import ChameleonFramework
 
 class LoginViewController: UIViewController,UITextFieldDelegate{
     
-    
+    //Outlets and Variables
     @IBOutlet weak var emailTextField: UITextField!
-    
     @IBOutlet weak var login: UIButton!
     @IBOutlet weak var passwordTextField: UITextField!
+    
+    //Load ViewController
     override func viewDidLoad() {
         super.viewDidLoad()
+        //Set Gradient Background
         let colors:[UIColor] = [UIColor.flatRedDark,UIColor.flatOrange]
         view.backgroundColor = GradientColor(.topToBottom, frame: view.frame, colors: colors)
+        
         emailTextField.delegate = self
         passwordTextField.delegate = self
         emailTextField.tag = 0
-        emailTextField.returnKeyType = UIReturnKeyType.next
-        passwordTextField.returnKeyType = UIReturnKeyType.done
         passwordTextField.tag = 1
         login.tag = 2
+        emailTextField.returnKeyType = UIReturnKeyType.next
+        passwordTextField.returnKeyType = UIReturnKeyType.done
     }
     
+    //Assign first responder
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         
         if textField == emailTextField {
@@ -45,12 +49,11 @@ class LoginViewController: UIViewController,UITextFieldDelegate{
         }
         return true
     }
+    
+    //LoginAction
     @IBAction func loginAction(_ sender: UIButton) {
         if self.emailTextField.text == "" || self.passwordTextField.text == "" {
-            /*let appDelegateTemp = UIApplication.shared.delegate as? AppDelegate
-            appDelegateTemp?.window?.rootViewController = UIStoryboard(name: "Main", bundle: Bundle.main).instantiateInitialViewController()*/
-            
-            
+        
             let alertController = UIAlertController(title: "Error", message: "Please enter an email and password.", preferredStyle: .alert)
             
             let defaultAction = UIAlertAction(title: "OK", style: .cancel, handler: nil)
@@ -59,6 +62,7 @@ class LoginViewController: UIViewController,UITextFieldDelegate{
             self.present(alertController, animated: true, completion: nil)
             
         } else {
+            //Authenticate User
             Auth.auth().signIn(withEmail: self.emailTextField.text!, password: self.passwordTextField.text!) { (user, error) in
                 
                 if error == nil {
@@ -83,6 +87,7 @@ class LoginViewController: UIViewController,UITextFieldDelegate{
             }
         }
     }
+    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
     }

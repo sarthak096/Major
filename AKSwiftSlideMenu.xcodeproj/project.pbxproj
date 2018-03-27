@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		081872AC2061675200C3D751 /* OrdersViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 084E0279205ADCD6002C8E87 /* OrdersViewController.swift */; };
+		081872CE2068AE0000C3D751 /* ListTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6EEF9F51CB7E2AD00A3DC6D /* ListTableViewController.swift */; };
 		0837B5FB2053C225008D699D /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0837B5FA2053C225008D699D /* ViewController.swift */; };
 		0837B5FD2053C249008D699D /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0837B5FC2053C249008D699D /* MainViewController.swift */; };
 		0837B5FF2053C26E008D699D /* MyCustomPageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0837B5FE2053C26E008D699D /* MyCustomPageViewController.swift */; };
@@ -17,7 +18,6 @@
 		0837B6072053FC29008D699D /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0837B6062053FC29008D699D /* LaunchScreen.storyboard */; };
 		0837B60B20542ED5008D699D /* CartItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0837B60A20542ED5008D699D /* CartItem.swift */; };
 		0837B60D20542FC4008D699D /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 0837B60C20542FC3008D699D /* GoogleService-Info.plist */; };
-		0837B60E20543608008D699D /* ListTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6EEF9F51CB7E2AD00A3DC6D /* ListTableViewController.swift */; };
 		0848102F205A6A40005A1851 /* ProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0837B60820542DFB008D699D /* ProfileViewController.swift */; };
 		08481031205A6A82005A1851 /* PaymentViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0848102D205A49EC005A1851 /* PaymentViewController.swift */; };
 		08DBC4E3205CEEB3005E1E97 /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 08DBC4E2205CEEB3005E1E97 /* CoreData.framework */; };
@@ -290,11 +290,11 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				081872CE2068AE0000C3D751 /* ListTableViewController.swift in Sources */,
 				081872AC2061675200C3D751 /* OrdersViewController.swift in Sources */,
 				08481031205A6A82005A1851 /* PaymentViewController.swift in Sources */,
 				0848102F205A6A40005A1851 /* ProfileViewController.swift in Sources */,
 				08F5A4792057922B00400A6C /* abc.swift in Sources */,
-				0837B60E20543608008D699D /* ListTableViewController.swift in Sources */,
 				0837B6052053FAB0008D699D /* SignUpViewController.swift in Sources */,
 				0837B5FF2053C26E008D699D /* MyCustomPageViewController.swift in Sources */,
 				0837B5FD2053C249008D699D /* MainViewController.swift in Sources */,

@@ -8,6 +8,7 @@
 import UIKit
 import Foundation
 
+//For Globalvaribles
 class abc {
     struct globalVariable {
         static var userName = String();

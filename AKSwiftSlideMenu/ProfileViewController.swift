@@ -17,16 +17,20 @@ protocol ProfileViewControllerDelegate: class {
 }
 class ProfileViewController: BaseViewController,UITextFieldDelegate{
     
+    
+    //Outlets and Variables
     @IBOutlet weak var logOut: UIButton!
     @IBOutlet weak var editBtn: UIBarButtonItem!
     @IBOutlet weak var userName: UITextField!
     @IBOutlet weak var userContact: UITextField!
     @IBOutlet weak var userEmail: UITextField!
     @IBOutlet weak var userAddress: UITextField!
-    
+    var userid:String = (Auth.auth().currentUser?.uid)!
     var editTextFieldToggle: Bool = false
     var username = abc.globalVariable.userName;
     let ref = Database.database().reference()
+    var flag = true
+    var address: String = ""
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -45,12 +49,11 @@ class ProfileViewController: BaseViewController,UITextFieldDelegate{
         userEmail.returnKeyType = UIReturnKeyType.next
         userAddress.returnKeyType = UIReturnKeyType.done
         
-       // let colors:[UIColor] = [UIColor.flatRed,UIColor.flatWhite]
-       // view.backgroundColor = GradientColor(.topToBottom, frame: view.frame, colors: colors)
+        //Make Round LogOutBtn
         logOut.layer.cornerRadius = 0.1 * logOut.bounds.size.width
         logOut.clipsToBounds = true
         let user = Auth.auth().currentUser
-        //ref.child("users").child(user!.uid).setValue(userData)
+        //Fetch userdata from the Firebase
         ref.child("users").child(user!.uid).observeSingleEvent(of: .value, with: { DataSnapshot in
             if !DataSnapshot.exists(){
                 return
@@ -62,9 +65,16 @@ class ProfileViewController: BaseViewController,UITextFieldDelegate{
             self.userEmail.text = email
             self.userName.text = uname
             self.userContact.text = contact
+            //self.address = userDict["Address"] as! String
+            if DataSnapshot.hasChild("Address"){
+                self.userAddress.text = userDict["Address"] as! String
+            }
+            else{
+            }
         })
     }
     
+    //Assign First responder
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         
         if textField == userName {
@@ -82,8 +92,10 @@ class ProfileViewController: BaseViewController,UITextFieldDelegate{
         return true
     }
     
+    //Edit user info
     @IBAction func editPressed(_ sender: UIBarButtonItem) {
         editTextFieldToggle = !editTextFieldToggle
+        flag = true
         if editTextFieldToggle == true {
             navigationItem.rightBarButtonItem = editBtn
             let edit = UIBarButtonItem(title: "Save", style: .plain, target: self, action: #selector(editPressed(_:)))
@@ -91,6 +103,9 @@ class ProfileViewController: BaseViewController,UITextFieldDelegate{
             textFieldActive()
             
         } else {
+            let add = userAddress.text
+            ref.child("users").child(userid).child("Address").setValue(add)
+            flag = false
             navigationItem.rightBarButtonItem = editBtn
             let edit = UIBarButtonItem(title: "Edit", style: .plain, target: self, action: #selector(editPressed(_:)))
             navigationItem.rightBarButtonItem = edit
@@ -99,6 +114,7 @@ class ProfileViewController: BaseViewController,UITextFieldDelegate{
         }
     }
     
+    //Enable Textfields
     func textFieldActive(){
 
         userName.isUserInteractionEnabled = true
@@ -108,6 +124,7 @@ class ProfileViewController: BaseViewController,UITextFieldDelegate{
         userAddress.isUserInteractionEnabled = true
     }
     
+    //Disable Textdfields
     func textFieldDeactive(){
 
         userName.isUserInteractionEnabled = false
@@ -116,23 +133,19 @@ class ProfileViewController: BaseViewController,UITextFieldDelegate{
         userAddress.isUserInteractionEnabled = false
     }
 
-    
+    //Logout user
     @IBAction func logoutAction(_ sender: Any) {
         // unauth() is the logout method for the current user.
         
         do{
             try Auth.auth().signOut()
             // Remove the user's uid from storage.
-            
             UserDefaults.standard.setValue(nil, forKey: "uid")
             
             // Head back to Login!
-            
-            //self.performSegueWithIdentifier("logoutSegue", sender: self)
         }catch{
             print("Error while signing out!")
         }
-        
         let loginViewController = self.storyboard!.instantiateViewController(withIdentifier: "Login")
         UIApplication.shared.keyWindow?.rootViewController = loginViewController
     }

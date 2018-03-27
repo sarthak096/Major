@@ -2,9 +2,10 @@
 //  MenuViewController.swift
 //  AKSwiftSlideMenu
 //
-//  Created by Ashish on 21/09/15.
-//  Copyright (c) 2015 Kode. All rights reserved.
+//  Created by i on 3/10/18.
+//  Copyright © 2018 Kode. All rights reserved.
 //
+
 
 import UIKit
 
@@ -39,6 +40,7 @@ class MenuViewController: UIViewController, UITableViewDataSource, UITableViewDe
     */
     var delegate : SlideMenuDelegate?
     
+    //Load ViewController
     override func viewDidLoad() {
         super.viewDidLoad()
         tblMenuOptions.tableFooterView = UIView()
@@ -60,7 +62,6 @@ class MenuViewController: UIViewController, UITableViewDataSource, UITableViewDe
         arrayMenuOptions.append(["title":"Cart", "icon":"shopcart"])
         arrayMenuOptions.append(["title":"Your orders", "icon":"orders"])
         arrayMenuOptions.append(["title":"Profile", "icon":"Profile"])
-        
         tblMenuOptions.reloadData()
     }
     

@@ -12,10 +12,12 @@ import Firebase
 
 class MainViewController:UIViewController,BWWalkthroughViewControllerDelegate {
     
+    //Variables
     var needWalkthrough:Bool = true
     var walkthrough:BWWalkthroughViewController!
     var newView: HomeVC?
     
+    //Load ViewController
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -26,8 +28,9 @@ class MainViewController:UIViewController,BWWalkthroughViewControllerDelegate {
             self.openview()
     }
     
+    
+    //Instantiate PageViewControllers
     func openview(){
-        
         let stb = UIStoryboard(name: "Main", bundle: nil)
         walkthrough = stb.instantiateViewController(withIdentifier: "container") as! BWWalkthroughViewController
         let page_one = stb.instantiateViewController(withIdentifier: "page_1")
@@ -47,8 +50,8 @@ class MainViewController:UIViewController,BWWalkthroughViewControllerDelegate {
             self.needWalkthrough = false
         }
     }
+    
     @IBAction func presentWalkthrough(){
-        
         let stb = UIStoryboard(name: "Main", bundle: nil)
         walkthrough = stb.instantiateViewController(withIdentifier: "container") as! BWWalkthroughViewController
         let page_one = stb.instantiateViewController(withIdentifier: "page_1")
@@ -73,9 +76,8 @@ class MainViewController:UIViewController,BWWalkthroughViewControllerDelegate {
 
 extension MainViewController{
     
+    //SkipBtn press
     func walkthroughCloseButtonPressed() {
-        print("close")
-        
          let rootController = UIStoryboard(name: "Main", bundle: Bundle.main).instantiateViewController(withIdentifier: "SignUp")
          self.present(rootController,animated:true,completion: nil)
  

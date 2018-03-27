@@ -2,8 +2,8 @@
 //  AppDelegate.swift
 //  AKSwiftSlideMenu
 //
-//  Created by Ashish on 21/09/15.
-//  Copyright (c) 2015 Kode. All rights reserved.
+//  Created by i on 3/10/18.
+//  Copyright © 2018 Kode. All rights reserved.
 //
 
 import UIKit
@@ -14,21 +14,24 @@ import CoreData
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
+    //Variables
     var window: UIWindow?
-
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
         FirebaseApp.configure()
         Database.database().isPersistenceEnabled = true
+        // Skip login on every launch if user has already logged in on the same device
         let launchedBefore = UserDefaults.standard.bool(forKey: "Signup")
         if launchedBefore  {
             print("hi")
             if Auth.auth().currentUser !== nil{
+                // instantiate ScanViewController
                 let rootController = UIStoryboard(name: "Main", bundle: Bundle.main).instantiateViewController(withIdentifier: "abc")
                 self.window?.rootViewController = rootController
             }
             else if Auth.auth().currentUser == nil {
+                // instantiate signupviewcontroller
                 let rootController = UIStoryboard(name: "Main", bundle: Bundle.main).instantiateViewController(withIdentifier: "SignUp")
                 self.window?.rootViewController = rootController
             }
@@ -38,7 +41,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             } catch {
                 
             }
-            print("lll")
             let rootController = UIStoryboard(name: "Main", bundle: Bundle.main).instantiateViewController(withIdentifier: "ad")
             self.window?.rootViewController = rootController
             UserDefaults.standard.set(true, forKey: "Signup")
@@ -72,6 +74,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     }
 
     func applicationDidFinishLaunching(_ application: UIApplication) {
+        // increase the launch time for launchscreen
         Thread.sleep(forTimeInterval : 4.0)
     }
     func application(_ application: UIApplication, performActionFor shortcutItem: UIApplicationShortcutItem, completionHandler: @escaping (Bool) -> Void) {

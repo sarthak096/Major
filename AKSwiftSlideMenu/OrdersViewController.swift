@@ -34,7 +34,7 @@ class OrdersViewController: BaseViewController, UITableViewDelegate, UITableView
         ref = Database.database().reference()
         print(Uid)
     }
-    
+    /*
     override func viewWillAppear(_ animated: Bool) {
         
         let qref = self.ref.child("users").child(Uid).child("orders").queryOrderedByKey()
@@ -51,13 +51,13 @@ class OrdersViewController: BaseViewController, UITableViewDelegate, UITableView
                 for snap in snapshot.children{
                     let new = snap as! DataSnapshot
                     let hh = new.value
-                     print(hh)
+                     print(self.titlesArray)
                 }
                
             })
         })
     }
-
+*/
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         print(vc.tp.count)
        // if (vc.tp.count) > 0 {

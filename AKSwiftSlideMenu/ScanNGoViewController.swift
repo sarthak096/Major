@@ -14,9 +14,9 @@ import CoreData
 
 class ScanNGoViewController: UIViewController, AVCaptureMetadataOutputObjectsDelegate{
     
+    //Outlets and Variables
     @IBOutlet weak var flashLight: UIButton!
     @IBOutlet weak var videoView: UIView!
-    @IBOutlet weak var messageLabel: UILabel?
     @IBOutlet weak var zoomPinch: UIPinchGestureRecognizer!
     var newView: HomeVC?
     var scannedCode: String?
@@ -26,8 +26,8 @@ class ScanNGoViewController: UIViewController, AVCaptureMetadataOutputObjectsDel
     var qrCodeFrameView: UIView?
     var captureDevice: AVCaptureDevice?
     let vc = ListTableViewController()
-   
     
+    //Handles PinchZoom
     @IBAction func zoomPinch(_ sender: UIPinchGestureRecognizer) {
         
         guard let device = captureDevice else{return}
@@ -49,6 +49,7 @@ class ScanNGoViewController: UIViewController, AVCaptureMetadataOutputObjectsDel
         }
     }
     
+    //Load ViewController
     public override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -99,12 +100,15 @@ class ScanNGoViewController: UIViewController, AVCaptureMetadataOutputObjectsDel
         
         view.addSubview(qrCodeFrameView!)
         view.bringSubview(toFront:qrCodeFrameView!)
+        //Make Round FlashLightBTn
         flashLight.layer.cornerRadius = 0.3 * flashLight.bounds.size.width
         flashLight.clipsToBounds = true
+        
         view.addSubview(flashLight!)
         view.bringSubview(toFront: flashLight!)
     }
     
+    //Handles FlashLightBtn Action
     @IBAction func flashToggle(_ sender: UIButton) {
         if (captureDevice!.hasTorch) {
             do {
@@ -155,7 +159,6 @@ class ScanNGoViewController: UIViewController, AVCaptureMetadataOutputObjectsDel
         
         if metadataObjects.count == 0 || metadataObjects == nil{
             qrCodeFrameView?.frame = CGRect.zero
-            messageLabel?.text = "No data"
             return
         }
         
@@ -165,52 +168,77 @@ class ScanNGoViewController: UIViewController, AVCaptureMetadataOutputObjectsDel
         
         if metadataObj.stringValue != nil{
             let alert = UIAlertController(title: "Add Item", message: "Select the quantity and add item to cart.", preferredStyle: .alert)
+            //Add textfield to alert dialog
             alert.addTextField { (textField: UITextField) in
                 textField.keyboardAppearance = .dark
                 textField.keyboardType = .default
                 textField.autocorrectionType = .default
-                textField.placeholder = "Quantity"
+                textField.placeholder = "Quantity in numbers"
                 textField.clearButtonMode = .whileEditing
+
             }
+            
             let firstTextField = alert.textFields![0] as UITextField
             let clearAction = UIAlertAction(title: "Cancel", style: .destructive) { (alert: UIAlertAction!) -> Void in
                 self.newView?.appDone = { (barcode: String) in
                     _ = self.navigationController?.popViewController(animated: true)
                     print("Received following barcode: \(barcode)")
                 }
-                if let newView = self.newView{
-                    self.navigationController?.pushViewController(newView, animated: true)
-                }
-            }
-            let cancelAction = UIAlertAction(title: "Add", style: .default) { (alert: UIAlertAction!) -> Void in
-                let nameToSave = metadataObj.stringValue!
-                self.save(itemname: nameToSave)
-                 NotificationCenter.default.post(name: NSNotification.Name(rawValue: "load"), object: nil)
                 
-                self.newView?.appDone = { (barcode: String) in
-                    _ = self.navigationController?.popViewController(animated: true)
-                    print("Received following barcode: \(barcode)")
-                }
                 if let newView = self.newView{
                     self.navigationController?.pushViewController(newView, animated: true)
                 }
+                
+            }
+            
+            let cancelAction = UIAlertAction(title: "Add", style: .default) { (alert: UIAlertAction!) -> Void in
+            
+                let alertok = UIAlertController(title: "Invalid quantity.", message: "Please scan again and enter a valid quantity", preferredStyle: .alert)
+                if self.isNumberValidInput(Input: firstTextField.text!) == false{
+                    let okAction =  UIAlertAction(title: "OK", style: .default, handler: { (alert: UIAlertAction!) in
+                        self.newView?.appDone = { (barcode: String) in
+                            _ = self.navigationController?.popViewController(animated: true)
+                            print("Received following barcode: \(barcode)")
+                        }
+                        
+                        if let newView = self.newView{
+                            self.navigationController?.pushViewController(newView, animated: true)
+                        }
+                    })
+                    alertok.addAction(okAction)
+                     self.present(alertok, animated: true, completion:nil)
+                }
+                else {
+                    let nameToSave = metadataObj.stringValue!
+                    let quantityToSave = Int(firstTextField.text!)
+                    self.save(itemname: nameToSave,itemquantity: quantityToSave!)
+                    NotificationCenter.default.post(name: NSNotification.Name(rawValue: "load"), object: nil)
+                    //Instantiate HomeViewController
+                    self.newView?.appDone = { (barcode: String) in
+                        _ = self.navigationController?.popViewController(animated: true)
+                        print("Received following barcode: \(barcode)")
+                    }
+                    
+                    if let newView = self.newView{
+                        self.navigationController?.pushViewController(newView, animated: true)
+                    }
+                }
+           
             }
             
             alert.addAction(clearAction)
             alert.addAction(cancelAction)
-            
             present(alert, animated: true, completion:nil)
-           // messageLabel?.text = metadataObj.stringValue
             captureSession?.stopRunning()
         }
     }
-    
     
     public override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
     }
     
-    func save(itemname: String) {
+    //Function to save item and quantity to CoreData
+    func save(itemname: String,itemquantity: Int) {
         guard let appDelegate = UIApplication.shared.delegate as? AppDelegate else {
             return
         }
@@ -224,15 +252,25 @@ class ScanNGoViewController: UIViewController, AVCaptureMetadataOutputObjectsDel
                                      insertInto: managedContext)
         
         cartname.setValue(itemname, forKeyPath: "itemname")
+        cartname.setValue(itemquantity, forKeyPath: "itemquantity")
         
         do {
             try managedContext.save()
             vc.pcart.append(cartname)
+            print(vc.pcart)
         } catch let error as NSError {
             print("Could not save. \(error), \(error.userInfo)")
         }
+        
     }
     
+    //Check the validity of the input quantity
+    func isNumberValidInput(Input:String) -> Bool {
+        let myCharSet=CharacterSet(charactersIn:"0123456789")
+        let output: String = Input.trimmingCharacters(in: myCharSet.inverted)
+        let isValid: Bool = (Input == output)
+        return isValid
+    }
     
 }
 

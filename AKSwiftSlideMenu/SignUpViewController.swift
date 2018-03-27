@@ -14,39 +14,37 @@ import ChameleonFramework
 
 class SignUpViewController : UIViewController,UITextFieldDelegate{
   
+    //Outlets and variables
     @IBOutlet weak var emailTextField: UITextField!
-    
     @IBOutlet weak var passwordTextField: UITextField!
-    
     @IBOutlet weak var mobileNum: UITextField!
     @IBOutlet weak var firstName: UITextField!
-    // @IBOutlet weak var resetPassword: UIButton!
     @IBOutlet weak var signUp: UIButton!
 
-    
+    //Load the ViewController
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        //For gradient background
         let colors:[UIColor] = [UIColor.flatRedDark,UIColor.flatOrange]
         view.backgroundColor = GradientColor(.topToBottom, frame: view.frame, colors: colors)
+        
         firstName.delegate = self
         mobileNum.delegate = self
         emailTextField.delegate = self
         passwordTextField.delegate = self
-        emailTextField.tag = 3
-        emailTextField.returnKeyType = UIReturnKeyType.next
-        passwordTextField.returnKeyType = UIReturnKeyType.done
+        firstName.tag = 0
+        mobileNum.tag = 1
+        emailTextField.tag = 2
+        passwordTextField.tag = 3
+        signUp.tag = 4
         firstName.returnKeyType = UIReturnKeyType.next
         mobileNum.returnKeyType = UIReturnKeyType.next
-        passwordTextField.tag = 4
-        firstName.tag = 0
-        mobileNum.tag = 2
-        signUp.tag = 5
-        
-        //let colors:[UIColor] = [UIColor.flatWhite,UIColor.flatRedDark]
-        //view.backgroundColor = GradientColor(.radial, frame: view.frame, colors: colors)
-       
+        emailTextField.returnKeyType = UIReturnKeyType.next
+        passwordTextField.returnKeyType = UIReturnKeyType.done
     }
-    
+
+    // To assign the responder on return key press
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         
         if textField == firstName {
@@ -67,12 +65,15 @@ class SignUpViewController : UIViewController,UITextFieldDelegate{
         return true
     }
     
+    // Function to check the valid input string for UserName
     func isNameValidInput(Input:String) -> Bool {
-        let myCharSet=CharacterSet(charactersIn:"abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ")
+        let myCharSet=CharacterSet(charactersIn:"abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ ")
         let output: String = Input.trimmingCharacters(in: myCharSet.inverted)
         let isValid: Bool = (Input == output)
         return isValid
     }
+    
+    //Function to check the valid input string for Contact
     func isNumberValidInput(Input:String) -> Bool {
         let myCharSet=CharacterSet(charactersIn:"0123456789")
         let output: String = Input.trimmingCharacters(in: myCharSet.inverted)
@@ -80,6 +81,7 @@ class SignUpViewController : UIViewController,UITextFieldDelegate{
         return isValid
     }
     
+    //Fucntion to create account on Signup button press
     @IBAction func createAccountAction(_ sender: Any) {
         
         if emailTextField.text! == "" || firstName.text! == "" || mobileNum.text! == "" || passwordTextField.text! == "" || isNameValidInput(Input: firstName.text!) == false || isNumberValidInput(Input: mobileNum.text!) == false{
@@ -90,6 +92,7 @@ class SignUpViewController : UIViewController,UITextFieldDelegate{
             present(alertController, animated: true, completion: nil)
         }
         else{
+            //Authenticate User
             Auth.auth().createUser(withEmail: emailTextField.text!, password: passwordTextField.text!){ (user, error)
                 in
                 if error == nil{
