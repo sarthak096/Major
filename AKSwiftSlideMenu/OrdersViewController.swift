@@ -9,6 +9,13 @@
 import UIKit
 import Firebase
 
+
+class TestTableViewCell: UITableViewCell{
+    
+    
+    
+}
+
 class OrdersViewController: BaseViewController, UITableViewDelegate, UITableViewDataSource{
     
     var ref: DatabaseReference!
@@ -19,7 +26,7 @@ class OrdersViewController: BaseViewController, UITableViewDelegate, UITableView
     var titlesArray:[String] = []
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var orderLabel: UILabel!
-    
+    var newitem = [String]()
     
     
     override func viewDidLoad() {
@@ -33,58 +40,34 @@ class OrdersViewController: BaseViewController, UITableViewDelegate, UITableView
         tableView.reloadData()
         ref = Database.database().reference()
         print(Uid)
+        tableView.reloadData()
     }
-    /*
-    override func viewWillAppear(_ animated: Bool) {
+
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         
+     return 10
+    }
+
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+       let cell = UITableViewCell(style: .subtitle, reuseIdentifier: "Order1 Cell")
+        //Fetch Firebase Data
         let qref = self.ref.child("users").child(Uid).child("orders").queryOrderedByKey()
         qref.observeSingleEvent(of: .value, with: { (snapshot) in
             for snap in snapshot.children{
                 let usersnap = snap as! DataSnapshot
-                self.tt = usersnap.key
+                print("Hello")
+                //self.titlesArray.append(item!)
+                cell.detailTextLabel?.text = usersnap.value as? String
+                cell.textLabel?.text = usersnap.key as? String
+                print(usersnap.key)
+                print(usersnap.value)
             }
-            print(self.tt)
-            print("new")
-            
-            let dref = self.ref.child("users").child(self.Uid).child("orders").child(self.tt).queryOrderedByKey()
-            dref.observeSingleEvent(of: .value, with: { (snapshot) in
-                for snap in snapshot.children{
-                    let new = snap as! DataSnapshot
-                    let hh = new.value
-                     print(self.titlesArray)
-                }
-               
-            })
+            print(self.titlesArray)
         })
-    }
-*/
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        print(vc.tp.count)
-       // if (vc.tp.count) > 0 {
-            tableView.backgroundView = nil
-            tableView.separatorStyle = .singleLine
-            /*
-        }
-        else{
-            
-            let noDataLabel: UILabel     = UILabel(frame: CGRect(x: 0, y: 0, width: tableView.bounds.size.width, height: tableView.bounds.size.height))
-            noDataLabel.text          = "No previous order history"
-            noDataLabel.textColor     = UIColor.black
-            noDataLabel.textAlignment = .center
-            tableView.backgroundView  = noDataLabel
-            tableView.separatorStyle  = .none
-        }*/
-        return newarray.count
-    }
-    
-    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let item = vc.tp[indexPath.row]
-        let cell = tableView.dequeueReusableCell(withIdentifier: "Order Cell", for: indexPath)
-        print(item)
-       // cell.textLabel?.text =
         return cell
+        
     }
-    
+
     func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
         return true
     }
