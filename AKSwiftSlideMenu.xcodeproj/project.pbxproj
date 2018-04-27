@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		08139521207696C0003BCCA2 /* GlobalVariables.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08139520207696C0003BCCA2 /* GlobalVariables.swift */; };
 		081872AC2061675200C3D751 /* OrdersViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 084E0279205ADCD6002C8E87 /* OrdersViewController.swift */; };
 		081872CE2068AE0000C3D751 /* ListTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6EEF9F51CB7E2AD00A3DC6D /* ListTableViewController.swift */; };
 		0837B5FB2053C225008D699D /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0837B5FA2053C225008D699D /* ViewController.swift */; };
@@ -20,6 +21,16 @@
 		0837B60D20542FC4008D699D /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 0837B60C20542FC3008D699D /* GoogleService-Info.plist */; };
 		0848102F205A6A40005A1851 /* ProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0837B60820542DFB008D699D /* ProfileViewController.swift */; };
 		08481031205A6A82005A1851 /* PaymentViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0848102D205A49EC005A1851 /* PaymentViewController.swift */; };
+		087313692090A64600796E6F /* Accelerate.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 087313602090A64500796E6F /* Accelerate.framework */; };
+		0873136A2090A64600796E6F /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 087313612090A64500796E6F /* AudioToolbox.framework */; };
+		0873136B2090A64600796E6F /* CoreMedia.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 087313622090A64500796E6F /* CoreMedia.framework */; };
+		0873136C2090A64600796E6F /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 087313632090A64500796E6F /* CoreLocation.framework */; };
+		0873136D2090A64600796E6F /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 087313642090A64500796E6F /* AVFoundation.framework */; };
+		0873136E2090A64600796E6F /* MessageUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 087313652090A64500796E6F /* MessageUI.framework */; };
+		0873136F2090A64600796E6F /* SafariServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 087313662090A64500796E6F /* SafariServices.framework */; };
+		087313702090A64600796E6F /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 087313672090A64500796E6F /* SystemConfiguration.framework */; };
+		087313712090A64600796E6F /* MobileCoreServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 087313682090A64500796E6F /* MobileCoreServices.framework */; };
+		087313762090E2CA00796E6F /* Stripe.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 087313752090E2CA00796E6F /* Stripe.framework */; };
 		08DBC4E3205CEEB3005E1E97 /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 08DBC4E2205CEEB3005E1E97 /* CoreData.framework */; };
 		08DBC4E6205CEEE9005E1E97 /* AKSwiftSlideMenu.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 08DBC4E4205CEEE9005E1E97 /* AKSwiftSlideMenu.xcdatamodeld */; };
 		08F5A4792057922B00400A6C /* abc.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08F5A4782057922B00400A6C /* abc.swift */; };
@@ -33,6 +44,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		08139520207696C0003BCCA2 /* GlobalVariables.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GlobalVariables.swift; sourceTree = "<group>"; };
 		0837B5FA2053C225008D699D /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
 		0837B5FC2053C249008D699D /* MainViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewController.swift; sourceTree = "<group>"; };
 		0837B5FE2053C26E008D699D /* MyCustomPageViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyCustomPageViewController.swift; sourceTree = "<group>"; };
@@ -45,6 +57,17 @@
 		0837B60C20542FC3008D699D /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		0848102D205A49EC005A1851 /* PaymentViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PaymentViewController.swift; sourceTree = "<group>"; };
 		084E0279205ADCD6002C8E87 /* OrdersViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OrdersViewController.swift; sourceTree = "<group>"; };
+		087313602090A64500796E6F /* Accelerate.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Accelerate.framework; path = System/Library/Frameworks/Accelerate.framework; sourceTree = SDKROOT; };
+		087313612090A64500796E6F /* AudioToolbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioToolbox.framework; path = System/Library/Frameworks/AudioToolbox.framework; sourceTree = SDKROOT; };
+		087313622090A64500796E6F /* CoreMedia.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreMedia.framework; path = System/Library/Frameworks/CoreMedia.framework; sourceTree = SDKROOT; };
+		087313632090A64500796E6F /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
+		087313642090A64500796E6F /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
+		087313652090A64500796E6F /* MessageUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MessageUI.framework; path = System/Library/Frameworks/MessageUI.framework; sourceTree = SDKROOT; };
+		087313662090A64500796E6F /* SafariServices.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SafariServices.framework; path = System/Library/Frameworks/SafariServices.framework; sourceTree = SDKROOT; };
+		087313672090A64500796E6F /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
+		087313682090A64500796E6F /* MobileCoreServices.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MobileCoreServices.framework; path = System/Library/Frameworks/MobileCoreServices.framework; sourceTree = SDKROOT; };
+		087313722090A6F000796E6F /* AKSwiftSlideMenu-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "AKSwiftSlideMenu-Bridging-Header.h"; sourceTree = "<group>"; };
+		087313752090E2CA00796E6F /* Stripe.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Stripe.framework; sourceTree = "<group>"; };
 		08DBC4E2205CEEB3005E1E97 /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = System/Library/Frameworks/CoreData.framework; sourceTree = SDKROOT; };
 		08DBC4E5205CEEE9005E1E97 /* AKSwiftSlideMenu.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = AKSwiftSlideMenu.xcdatamodel; sourceTree = "<group>"; };
 		08F5A4782057922B00400A6C /* abc.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = abc.swift; sourceTree = "<group>"; };
@@ -67,8 +90,18 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				087313692090A64600796E6F /* Accelerate.framework in Frameworks */,
+				0873136A2090A64600796E6F /* AudioToolbox.framework in Frameworks */,
+				0873136B2090A64600796E6F /* CoreMedia.framework in Frameworks */,
+				0873136C2090A64600796E6F /* CoreLocation.framework in Frameworks */,
+				0873136D2090A64600796E6F /* AVFoundation.framework in Frameworks */,
+				0873136E2090A64600796E6F /* MessageUI.framework in Frameworks */,
+				0873136F2090A64600796E6F /* SafariServices.framework in Frameworks */,
+				087313702090A64600796E6F /* SystemConfiguration.framework in Frameworks */,
+				087313712090A64600796E6F /* MobileCoreServices.framework in Frameworks */,
 				08DBC4E3205CEEB3005E1E97 /* CoreData.framework in Frameworks */,
 				891FB49F3646B3E58F4C1AC8 /* Pods_AKSwiftSlideMenu.framework in Frameworks */,
+				087313762090E2CA00796E6F /* Stripe.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -78,6 +111,15 @@
 		55991DF5D50019A2F81483F9 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				087313602090A64500796E6F /* Accelerate.framework */,
+				087313612090A64500796E6F /* AudioToolbox.framework */,
+				087313642090A64500796E6F /* AVFoundation.framework */,
+				087313632090A64500796E6F /* CoreLocation.framework */,
+				087313622090A64500796E6F /* CoreMedia.framework */,
+				087313652090A64500796E6F /* MessageUI.framework */,
+				087313682090A64500796E6F /* MobileCoreServices.framework */,
+				087313662090A64500796E6F /* SafariServices.framework */,
+				087313672090A64500796E6F /* SystemConfiguration.framework */,
 				08DBC4E2205CEEB3005E1E97 /* CoreData.framework */,
 				FA51E244B98C4BB50108D54A /* Pods_AKSwiftSlideMenu.framework */,
 			);
@@ -91,6 +133,7 @@
 				753A55BE1BB073E900254F27 /* Products */,
 				C66048D32704ABE3769C6D2E /* Pods */,
 				55991DF5D50019A2F81483F9 /* Frameworks */,
+				087313722090A6F000796E6F /* AKSwiftSlideMenu-Bridging-Header.h */,
 			);
 			sourceTree = "<group>";
 		};
@@ -110,6 +153,7 @@
 				753A55E41BB0755100254F27 /* BaseViewController.swift */,
 				753A55E21BB0753B00254F27 /* MenuViewController.swift */,
 				C6EEF9F51CB7E2AD00A3DC6D /* ListTableViewController.swift */,
+				087313752090E2CA00796E6F /* Stripe.framework */,
 				753A55C61BB073E900254F27 /* Main.storyboard */,
 				753A55C91BB073E900254F27 /* Images.xcassets */,
 				0837B60C20542FC3008D699D /* GoogleService-Info.plist */,
@@ -127,6 +171,7 @@
 				0848102D205A49EC005A1851 /* PaymentViewController.swift */,
 				084E0279205ADCD6002C8E87 /* OrdersViewController.swift */,
 				08DBC4E4205CEEE9005E1E97 /* AKSwiftSlideMenu.xcdatamodeld */,
+				08139520207696C0003BCCA2 /* GlobalVariables.swift */,
 			);
 			path = AKSwiftSlideMenu;
 			sourceTree = "<group>";
@@ -185,7 +230,7 @@
 					753A55BC1BB073E900254F27 = {
 						CreatedOnToolsVersion = 6.4;
 						DevelopmentTeam = 5NRG7ZCWW3;
-						LastSwiftMigration = 0900;
+						LastSwiftMigration = 0930;
 					};
 				};
 			};
@@ -266,6 +311,7 @@
 				"${BUILT_PRODUCTS_DIR}/ChameleonFramework/ChameleonFramework.framework",
 				"${BUILT_PRODUCTS_DIR}/GTMSessionFetcher/GTMSessionFetcher.framework",
 				"${BUILT_PRODUCTS_DIR}/GoogleToolboxForMac/GoogleToolboxForMac.framework",
+				"${BUILT_PRODUCTS_DIR}/Stripe/Stripe.framework",
 				"${BUILT_PRODUCTS_DIR}/leveldb-library/leveldb.framework",
 				"${BUILT_PRODUCTS_DIR}/nanopb/nanopb.framework",
 			);
@@ -275,6 +321,7 @@
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/ChameleonFramework.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GTMSessionFetcher.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GoogleToolboxForMac.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Stripe.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/leveldb.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/nanopb.framework",
 			);
@@ -302,6 +349,7 @@
 				0837B5FB2053C225008D699D /* ViewController.swift in Sources */,
 				753A55E51BB0755100254F27 /* BaseViewController.swift in Sources */,
 				C6EEF9F81CB7E4E000A3DC6D /* HomeVC.swift in Sources */,
+				08139521207696C0003BCCA2 /* GlobalVariables.swift in Sources */,
 				0837B6012053D6E3008D699D /* ScanNGoViewController.swift in Sources */,
 				753A55E31BB0753B00254F27 /* MenuViewController.swift in Sources */,
 				0837B6032053FA85008D699D /* LoginViewController.swift in Sources */,
@@ -433,12 +481,19 @@
 			baseConfigurationReference = BDACDA6AC37A646B96983C56 /* Pods-AKSwiftSlideMenu.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ENABLE_MODULES = YES;
 				DEVELOPMENT_TEAM = 5NRG7ZCWW3;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/AKSwiftSlideMenu",
+				);
 				INFOPLIST_FILE = AKSwiftSlideMenu/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 11.2;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.sarthak;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = "AKSwiftSlideMenu-Bridging-Header.h";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_SWIFT3_OBJC_INFERENCE = Off;
 				SWIFT_VERSION = 4.0;
 			};
@@ -449,12 +504,18 @@
 			baseConfigurationReference = 16E1A1D021124B9917F3FFC5 /* Pods-AKSwiftSlideMenu.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ENABLE_MODULES = YES;
 				DEVELOPMENT_TEAM = 5NRG7ZCWW3;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/AKSwiftSlideMenu",
+				);
 				INFOPLIST_FILE = AKSwiftSlideMenu/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 11.2;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.sarthak;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = "AKSwiftSlideMenu-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
 				SWIFT_SWIFT3_OBJC_INFERENCE = Off;
 				SWIFT_VERSION = 4.0;

@@ -14,7 +14,7 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "7A7EA13B8E407B40496FA370FA47D43E"
+               BlueprintIdentifier = "5F491491F418E5107895C216AA4DD286"
                BuildableName = "Pods_AKSwiftSlideMenu.framework"
                BlueprintName = "Pods-AKSwiftSlideMenu"
                ReferencedContainer = "container:Pods.xcodeproj">
@@ -45,7 +45,7 @@
       <MacroExpansion>
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "7A7EA13B8E407B40496FA370FA47D43E"
+            BlueprintIdentifier = "5F491491F418E5107895C216AA4DD286"
             BuildableName = "Pods_AKSwiftSlideMenu.framework"
             BlueprintName = "Pods-AKSwiftSlideMenu"
             ReferencedContainer = "container:Pods.xcodeproj">

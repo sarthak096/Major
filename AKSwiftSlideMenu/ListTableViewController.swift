@@ -9,9 +9,54 @@
 import UIKit
 import Firebase
 import CoreData
+import Stripe
 
-
-class ListTableViewController: BaseViewController,UITableViewDelegate, UITableViewDataSource{
+class ListTableViewController: BaseViewController,UITableViewDelegate, UITableViewDataSource, PayPalPaymentDelegate,STPAddCardViewControllerDelegate,CardIOPaymentViewControllerDelegate{
+    
+    
+    func userDidCancel(_ paymentViewController: CardIOPaymentViewController!) {
+        paymentViewController?.dismiss(animated: true, completion: nil)
+    }
+    
+    func userDidProvide(_ cardInfo: CardIOCreditCardInfo!, in paymentViewController: CardIOPaymentViewController!) {
+        paymentViewController?.dismiss(animated: true, completion: nil)
+    }
+    
+    
+    
+    func addCardViewControllerDidCancel(_ addCardViewController: STPAddCardViewController) {
+         navigationController?.popViewController(animated: true)
+    }
+    
+    func addCardViewController(_ addCardViewController: STPAddCardViewController, didCreateToken token: STPToken, completion: @escaping STPErrorBlock) {
+        if (true){
+                completion(nil)
+                let alertController = UIAlertController(title: "Congrats", message: "Your payment was successful!", preferredStyle: .alert)
+                let alertAction = UIAlertAction(title: "OK", style: .default, handler: { _ in
+                    self.navigationController?.popViewController(animated: true)
+                })
+                alertController.addAction(alertAction)
+                self.present(alertController, animated: true)
+        }// 2
+        else{
+            } 
+        }
+    
+    
+    func payPalPaymentDidCancel(_ paymentViewController: PayPalPaymentViewController) {
+        print("PayPal Payment Cancelled")
+        paymentViewController.dismiss(animated: true, completion: nil)
+    }
+    
+    func payPalPaymentViewController(_ paymentViewController: PayPalPaymentViewController, didComplete completedPayment: PayPalPayment) {
+        print("PayPal Payment Success !")
+        paymentViewController.dismiss(animated: true, completion: { () -> Void in
+            // send completed confirmaion to your server
+            print("Here is your proof of payment:\n\n\(completedPayment.confirmation)\n\nSend this to your server for confirmation and fulfillment.")
+            
+        })
+    }
+    
     
     //Outlets and Variables
     @IBOutlet weak var checkOut: UIButton!
@@ -27,9 +72,18 @@ class ListTableViewController: BaseViewController,UITableViewDelegate, UITableVi
     var ref: DatabaseReference!
     var quantity: [Int] = []
     var firedata: [String] = []
+    @IBOutlet weak var totalLabel: UILabel!
+    var environment: String = PayPalEnvironmentNoNetwork{
+        willSet(newEnvironment)
+        {
+            if (newEnvironment != environment){
+                PayPalMobile.preconnect(withEnvironment: newEnvironment)
+            }
+        }
+    }
+    var payPalConfig = PayPalConfiguration()
     
-    
-//Load ViewControllers
+    //Load ViewControllers
     override func viewDidLoad() {
         super.viewDidLoad()
         addSlideMenuButton()
@@ -42,6 +96,20 @@ class ListTableViewController: BaseViewController,UITableViewDelegate, UITableVi
         tableView.allowsSelection = false
         ref = Database.database().reference()
         
+        //Set up PayPalCongif
+        payPalConfig.acceptCreditCards = false
+        payPalConfig.merchantName = "Scan N Go"  //Give your company name here.
+        payPalConfig.merchantPrivacyPolicyURL = URL(string: "https://www.paypal.com/webapps/mpp/ua/privacy-full")
+        payPalConfig.merchantUserAgreementURL = URL(string: "https://www.paypal.com/webapps/mpp/ua/useragreement-full")
+        
+        //This is the language in which your paypal sdk will be shown to users.
+        
+        payPalConfig.languageOrLocale = Locale.preferredLanguages[0]
+        
+        //Here you can set the shipping address. You can choose either the address associated with PayPal account or different address. We'll use .both here.
+        
+        payPalConfig.payPalShippingAddressOption = .both;
+        CardIOUtilities.preload()
     }
     
     //Reload TableView
@@ -53,6 +121,8 @@ class ListTableViewController: BaseViewController,UITableViewDelegate, UITableVi
     //Create CoreData Object and FetchRequest
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+        PayPalMobile.preconnect(withEnvironment: environment)
+         GlobalVariables.sharedManager.totalprice = 0
         
         guard let appDelegate = UIApplication.shared.delegate as? AppDelegate else{
             return
@@ -65,6 +135,11 @@ class ListTableViewController: BaseViewController,UITableViewDelegate, UITableVi
         } catch let error as NSError {
             print("Could not fetch. \(error), \(error.userInfo)")
         }
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        totalLabel.text = String(GlobalVariables.sharedManager.totalprice)
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -90,10 +165,28 @@ class ListTableViewController: BaseViewController,UITableViewDelegate, UITableVi
         let cartname = pcart[indexPath.row]
         let new: Int = (cartname.value(forKey: "itemquantity") as? Int)!
         let str = String(new)
-        cell.detailTextLabel?.text = "Quantity : " + str
         let new1 : String = (cartname.value(forKey: "itemname") as? String)!
         let str1 = String(new1)
-        cell.textLabel?.text = "Item : " + str1
+        let intstr = Int(str)
+        
+        ref.child("Database").child(str1).observeSingleEvent(of: .value, with: { DataSnapshot in
+            if !DataSnapshot.exists(){
+                return
+            }
+            let userDict = DataSnapshot.value as! [String: Any]
+            let qprice = userDict["Price"] as! String
+            let qdesc = userDict["Description"] as! String
+            let intprice = Int(qprice)
+            let finalprice  = intstr! * intprice!
+            let price = String(finalprice)
+            let totalprice  = Int(finalprice)
+            GlobalVariables.sharedManager.tempprice = totalprice
+            cell.textLabel?.text = "Item : " + qdesc 
+            cell.detailTextLabel?.text = "Quantity : " + str + "    ,   Price : " + price
+            GlobalVariables.sharedManager.totalprice = GlobalVariables.sharedManager.totalprice + GlobalVariables.sharedManager.tempprice
+            print(GlobalVariables.sharedManager.totalprice)
+        })
+        
         return cell
     }
     
@@ -165,6 +258,7 @@ class ListTableViewController: BaseViewController,UITableViewDelegate, UITableVi
         alertView.addAction(UIAlertAction(title: "No", style: .destructive, handler: nil))
         alertView.addAction(UIAlertAction(title: "Clear", style: .default, handler: { (alertAction) -> Void in
             self.clearCart()
+            self.totalLabel.text = ""
         }))
         present(alertView, animated: true, completion: nil)
     }
@@ -192,6 +286,51 @@ class ListTableViewController: BaseViewController,UITableViewDelegate, UITableVi
             alertnew.addAction(UIAlertAction(title: "No", style: .destructive, handler: { (alertAction) -> Void in
             }))
             alertnew.addAction(UIAlertAction(title: "Yes", style: .default, handler: { (alertAction) -> Void in
+                //Payemnt options
+                let alertpayment = UIAlertController(title: "Payment", message: "Select the payment method.", preferredStyle: .alert)
+                alertpayment.addAction(UIAlertAction(title: "Cash on delivery", style: .default, handler: { (alertAction) -> Void in
+                }))
+                alertpayment.addAction(UIAlertAction(title: "PayPal", style: .default, handler: { (alertAction) -> Void in
+                    let item1 = PayPalItem(name: "Brewit-tshirt", withQuantity: 2, withPrice: NSDecimalNumber(string: "84.99"), withCurrency: "USD", withSku: "BREWIT-0011")
+                    let item2 = PayPalItem(name: "Free Brewit cards", withQuantity: 1, withPrice: NSDecimalNumber(string: "0.00"), withCurrency: "USD", withSku: "BREWIT-0012")
+                    let item3 = PayPalItem(name: "Brewit-cup", withQuantity: 1, withPrice: NSDecimalNumber(string: "37.99"), withCurrency: "USD", withSku: "BREWIT-0091")
+                    
+                    let items = [item1, item2, item3]
+                    let subtotal = PayPalItem.totalPrice(forItems: items) //This is the total price of all the items
+                    
+                    // Optional: include payment details
+                    let shipping = NSDecimalNumber(string: "5.99")
+                    let tax = NSDecimalNumber(string: "2.50")
+                    let paymentDetails = PayPalPaymentDetails(subtotal: subtotal, withShipping: shipping, withTax: tax)
+                    
+                    let total = subtotal.adding(shipping).adding(tax) //This is the total price including shipping and tax
+                    
+                    let payment = PayPalPayment(amount: total, currencyCode: "USD", shortDescription: "Total", intent: .sale)
+                    
+                    payment.items = items
+                    payment.paymentDetails = paymentDetails
+                    
+                    if (payment.processable) {
+                        let paymentViewController = PayPalPaymentViewController(payment: payment, configuration: self.payPalConfig, delegate: self)
+                        self.present(paymentViewController!, animated: true, completion: nil)
+                    }
+                    else {
+                        // This particular payment will always be processable. If, for
+                        // example, the amount was negative or the shortDescription was
+                        // empty, this payment wouldn't be processable, and you'd want
+                        // to handle that here.
+                        print("Payment not processalbe: \(payment)")
+                    }
+                    
+                }))
+                alertpayment.addAction(UIAlertAction(title: "Other(Card)", style: .default, handler: { (alertAction) -> Void in
+                    let addCardViewController = STPAddCardViewController()
+                    addCardViewController.delegate = self
+                    self.navigationController?.pushViewController(addCardViewController, animated: true)
+                }))
+                
+                alertpayment.addAction(UIAlertAction(title: "Cancel ", style: .destructive, handler: nil))
+                self.present(alertpayment,animated: true,completion: nil)
                 self.clearCart()
                 let new = NSArray(array: self.tp)
                 let quant = NSArray(array: self.quantity)
@@ -202,10 +341,12 @@ class ListTableViewController: BaseViewController,UITableViewDelegate, UITableVi
                 var strn = "\(newStr),\(quantStr)"
                 var time = String(Date().ticks)
                 
+                
                 //Store CoreData to Firebase
                 for i in 0...self.tp.count-1{
                     var stre = "\(new[i]),\(quant[i])"
                     self.ref.child("users").child(self.id).child("orders").child(time).child("Item: \(i)").setValue(stre)
+                    //self.ref.child("users").child(self.id).child("orders").child(time).childByAutoId().setValue(stre)
                     print(stre)
                 }
                 

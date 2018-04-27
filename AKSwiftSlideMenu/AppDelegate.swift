@@ -10,6 +10,7 @@ import UIKit
 import BWWalkthrough
 import Firebase
 import CoreData
+import Stripe
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -19,6 +20,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
+        STPPaymentConfiguration.shared().publishableKey = "pk_test_94ZtCFJ3sRtRKr4VNRfPfYAo"
+        PayPalMobile .initializeWithClientIds(forEnvironments: [PayPalEnvironmentProduction:"AagtePaLT6mAp-tcAfEm5gsrt_5d4PDD3OIsIDnj9IhaFxyqmKkeEAJgIB8upDjooQSJFdecDQKZnyx5", PayPalEnvironmentSandbox: "kapadiya.sarrhak-facilitator@gmail.com"])
         FirebaseApp.configure()
         Database.database().isPersistenceEnabled = true
         // Skip login on every launch if user has already logged in on the same device

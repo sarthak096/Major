@@ -13,5 +13,7 @@ class abc {
     struct globalVariable {
         static var userName = String();
         static var getid = String();
+        static var timetopass = String();
+        static var totalprice = Int();
     }
 }

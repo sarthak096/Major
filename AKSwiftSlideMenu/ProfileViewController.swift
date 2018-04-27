@@ -104,6 +104,10 @@ class ProfileViewController: BaseViewController,UITextFieldDelegate{
             
         } else {
             let add = userAddress.text
+            let name = userName.text
+            let contact = userContact.text
+            ref.child("users").child(userid).child("name").setValue(name)
+            ref.child("users").child(userid).child("mobile").setValue(contact)
             ref.child("users").child(userid).child("Address").setValue(add)
             flag = false
             navigationItem.rightBarButtonItem = editBtn

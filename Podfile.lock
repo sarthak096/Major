@@ -1,5 +1,6 @@
 PODS:
   - BWWalkthrough (2.1.2)
+  - CardIO (5.4.1)
   - ChameleonFramework/Default (2.1.0)
   - ChameleonFramework/Swift (2.1.0):
     - ChameleonFramework/Default
@@ -46,13 +47,23 @@ PODS:
     - nanopb/encode (= 0.3.8)
   - nanopb/decode (0.3.8)
   - nanopb/encode (0.3.8)
+  - PayPal-iOS-SDK (2.18.1):
+    - PayPal-iOS-SDK/CardIO (= 2.18.1)
+    - PayPal-iOS-SDK/Core (= 2.18.1)
+  - PayPal-iOS-SDK/CardIO (2.18.1):
+    - CardIO (~> 5.4.1)
+  - PayPal-iOS-SDK/Core (2.18.1)
+  - Stripe (12.1.2)
 
 DEPENDENCIES:
   - BWWalkthrough
+  - CardIO
   - ChameleonFramework/Swift (from `https://github.com/ViccAlexander/Chameleon.git`)
   - Firebase/Auth
   - Firebase/Core
   - Firebase/Database
+  - PayPal-iOS-SDK
+  - Stripe
 
 EXTERNAL SOURCES:
   ChameleonFramework:
@@ -65,6 +76,7 @@ CHECKOUT OPTIONS:
 
 SPEC CHECKSUMS:
   BWWalkthrough: 6b18dc688ff6b7168383fee07fe199ccaad7e9f7
+  CardIO: 56983b39b62f495fc6dae9ad7cf875143df06443
   ChameleonFramework: d21a3cc247abfe5e37609a283a8238b03575cf64
   Firebase: 92c6ba593e32db0defde464a9adc981d5cb49f97
   FirebaseAnalytics: 3dfae28d4a5e06f86c4fae830efc2ad3fadb19bc
@@ -76,7 +88,9 @@ SPEC CHECKSUMS:
   GTMSessionFetcher: 390ea358e5a0d0133153806f744662dad933d06b
   leveldb-library: 08cba283675b7ed2d99629a4bc5fd052cd2bb6a5
   nanopb: 5601e6bca2dbf1ed831b519092ec110f66982ca3
+  PayPal-iOS-SDK: 10654cd111e911a9807bddb96fae81aacb8e9915
+  Stripe: 3230cdf8a8b0c04902e45e86f222fb82a926239c
 
-PODFILE CHECKSUM: ebc6c36bd58f73ea45b4bfa4f61b9729b1fbe8cb
+PODFILE CHECKSUM: f42d92ad815c9e8c05612cf8a134a694c20557d6
 
 COCOAPODS: 1.4.0

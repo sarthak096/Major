@@ -19,7 +19,7 @@ class PaymentViewController:BaseViewController {
     public var openedpayment: ((String) -> ())?
     var openHome: HomeVC?
     let img = PaymentViewController.fromString(string: "whateva")
-    var listvc: ListTableViewController?
+    var listvc = ListTableViewController()
     var ref: DatabaseReference!
     
     //Load ViewController
@@ -54,7 +54,6 @@ class PaymentViewController:BaseViewController {
         })
         let confirm = UIAlertAction(title: "Yes", style: .default, handler: { (alert:UIAlertAction) -> Void in
             
-           // self.ref.child("orders").re
             self.openHome?.openedHome = { (barcode: String) in
                 _ = self.navigationController?.popViewController(animated: true)
             }
