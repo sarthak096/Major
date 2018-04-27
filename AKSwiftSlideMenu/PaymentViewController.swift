@@ -12,9 +12,7 @@ import Firebase
 class PaymentViewController:BaseViewController {
     
     //Outlets and Variables
-    
-    @IBOutlet weak var payonlinebtn: UIButton!
-    @IBOutlet weak var cashbtn: UIButton!
+    @IBOutlet weak var PaymentMode: UILabel!
     @IBOutlet weak var imgbarcode: UIImageView!
     public var openedpayment: ((String) -> ())?
     var openHome: HomeVC?
@@ -26,13 +24,10 @@ class PaymentViewController:BaseViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         //addSlideMenuButton()
-        cashbtn.layer.cornerRadius = 0.1 * cashbtn.bounds.size.width
-        cashbtn.clipsToBounds = true
-        payonlinebtn.layer.cornerRadius = 0.1 * payonlinebtn.bounds.size.width
-        payonlinebtn.clipsToBounds = true
+        self.imgbarcode.image = self.img
         openHome = self.storyboard!.instantiateViewController(withIdentifier: "Home") as? HomeVC
         self.navigationItem.setHidesBackButton(true, animated: true)
-        let cancelButton : UIBarButtonItem = UIBarButtonItem(title: "Cancel", style: UIBarButtonItemStyle.plain, target: self, action: #selector(cancelPressed(_:)))
+        let cancelButton : UIBarButtonItem = UIBarButtonItem(title: "Dismiss", style: UIBarButtonItemStyle.plain, target: self, action: #selector(cancelPressed(_:)))
         self.navigationItem.rightBarButtonItem = cancelButton
         ref = Database.database().reference().child("users").child((Auth.auth().currentUser?.uid)!)
         
@@ -48,7 +43,8 @@ class PaymentViewController:BaseViewController {
     
     //Handles order cancellation
     @objc func cancelPressed(_ sender: Any) {
-        let alert = UIAlertController(title: "Cancel order?", message: "Are you sure you want to continue and cancel your order? ", preferredStyle: .alert)
+        let alert = UIAlertController(title: "Save the receipt", message: "Please save the receipt by taking a screenshot or first show it to the staff members on exit", preferredStyle: .alert)
+        alert.addAction(UIAlertAction(title: "Ok", style: .default, handler: nil))
         let cancel =  UIAlertAction(title: "No", style: .destructive, handler: { (alert:UIAlertAction!) -> Void in
             
         })
@@ -64,26 +60,6 @@ class PaymentViewController:BaseViewController {
         alert.addAction(cancel)
         alert.addAction(confirm)
         present(alert, animated: true,completion: nil)
-    }
-    
-    //Handles Cash Payemnt
-    @IBAction func cashSelected(_ sender: UIButton) {
-        
-         let alert = UIAlertController(title: "Payment", message: "Confirm the selected payment method?", preferredStyle: .alert)
-          let cancelAction = UIAlertAction(title: "Cancel", style: .destructive) { (alert: UIAlertAction!) -> Void in
-            
-        }
-        let confirmAction = UIAlertAction(title: "Confirm", style: .default) { (alert: UIAlertAction!) -> Void in
-            //set Barcode
-            self.imgbarcode.image = self.img
-        //  NotificationCenter.default.post(name: NSNotification.Name(rawValue: "load"), object: nil)
-        }
-        alert.addAction(cancelAction)
-        alert.addAction(confirmAction)
-        
-        present(alert, animated: true, completion:nil)
-            
-            
     }
     
     //Generate barcode

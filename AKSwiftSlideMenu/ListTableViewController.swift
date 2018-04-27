@@ -31,12 +31,41 @@ class ListTableViewController: BaseViewController,UITableViewDelegate, UITableVi
     func addCardViewController(_ addCardViewController: STPAddCardViewController, didCreateToken token: STPToken, completion: @escaping STPErrorBlock) {
         if (true){
                 completion(nil)
+            let new = NSArray(array: self.tp)
+            let quant = NSArray(array: self.quantity)
+            let newmut = NSMutableArray(array: new)
+            let quantmut = NSMutableArray(array: quant)
+            var newStr = newmut as NSArray as? [String]
+            let quantStr = quantmut as NSArray as? [Int]
+            var strn = "\(newStr),\(quantStr)"
+            var time = String(Date().ticks)
+            
+            
+            //Store CoreData to Firebase
+            for i in 0...self.tp.count-1{
+                var stre = "\(new[i]),\(quant[i])"
+                self.ref.child("users").child(self.id).child("orders").child(time).child("Item: \(i)").setValue(stre)
+                //self.ref.child("users").child(self.id).child("orders").child(time).childByAutoId().setValue(stre)
+                print(stre)
+            }
+            
+            let qref = self.ref.child("users").child(self.id).child("orders").queryOrderedByKey()
+            var tt = ""
+            qref.observeSingleEvent(of: .value, with: { (snapshot) in
+                for snap in snapshot.children{
+                    let usersnap = snap as! DataSnapshot
+                    tt = usersnap.key
+                }
+            })
                 let alertController = UIAlertController(title: "Congrats", message: "Your payment was successful!", preferredStyle: .alert)
                 let alertAction = UIAlertAction(title: "OK", style: .default, handler: { _ in
                     self.navigationController?.popViewController(animated: true)
                 })
+            
                 alertController.addAction(alertAction)
                 self.present(alertController, animated: true)
+                GlobalVariables.sharedManager.modeofpayment = "Online"
+                self.clearCart()
         }// 2
         else{
             } 
@@ -50,6 +79,34 @@ class ListTableViewController: BaseViewController,UITableViewDelegate, UITableVi
     
     func payPalPaymentViewController(_ paymentViewController: PayPalPaymentViewController, didComplete completedPayment: PayPalPayment) {
         print("PayPal Payment Success !")
+        let new = NSArray(array: self.tp)
+        let quant = NSArray(array: self.quantity)
+        let newmut = NSMutableArray(array: new)
+        let quantmut = NSMutableArray(array: quant)
+        var newStr = newmut as NSArray as? [String]
+        let quantStr = quantmut as NSArray as? [Int]
+        var strn = "\(newStr),\(quantStr)"
+        var time = String(Date().ticks)
+        
+        
+        //Store CoreData to Firebase
+        for i in 0...self.tp.count-1{
+            var stre = "\(new[i]),\(quant[i])"
+            self.ref.child("users").child(self.id).child("orders").child(time).child("Item: \(i)").setValue(stre)
+            //self.ref.child("users").child(self.id).child("orders").child(time).childByAutoId().setValue(stre)
+            print(stre)
+        }
+        
+        let qref = self.ref.child("users").child(self.id).child("orders").queryOrderedByKey()
+        var tt = ""
+        qref.observeSingleEvent(of: .value, with: { (snapshot) in
+            for snap in snapshot.children{
+                let usersnap = snap as! DataSnapshot
+                tt = usersnap.key
+            }
+        })
+        GlobalVariables.sharedManager.modeofpayment = "Online"
+        self.clearCart()
         paymentViewController.dismiss(animated: true, completion: { () -> Void in
             // send completed confirmaion to your server
             print("Here is your proof of payment:\n\n\(completedPayment.confirmation)\n\nSend this to your server for confirmation and fulfillment.")
@@ -289,6 +346,34 @@ class ListTableViewController: BaseViewController,UITableViewDelegate, UITableVi
                 //Payemnt options
                 let alertpayment = UIAlertController(title: "Payment", message: "Select the payment method.", preferredStyle: .alert)
                 alertpayment.addAction(UIAlertAction(title: "Cash on delivery", style: .default, handler: { (alertAction) -> Void in
+                    let new = NSArray(array: self.tp)
+                    let quant = NSArray(array: self.quantity)
+                    let newmut = NSMutableArray(array: new)
+                    let quantmut = NSMutableArray(array: quant)
+                    var newStr = newmut as NSArray as? [String]
+                    let quantStr = quantmut as NSArray as? [Int]
+                    var strn = "\(newStr),\(quantStr)"
+                    var time = String(Date().ticks)
+                    
+                    
+                    //Store CoreData to Firebase
+                    for i in 0...self.tp.count-1{
+                        var stre = "\(new[i]),\(quant[i])"
+                        self.ref.child("users").child(self.id).child("orders").child(time).child("Item: \(i)").setValue(stre)
+                        //self.ref.child("users").child(self.id).child("orders").child(time).childByAutoId().setValue(stre)
+                        print(stre)
+                    }
+                    
+                    let qref = self.ref.child("users").child(self.id).child("orders").queryOrderedByKey()
+                    var tt = ""
+                    qref.observeSingleEvent(of: .value, with: { (snapshot) in
+                        for snap in snapshot.children{
+                            let usersnap = snap as! DataSnapshot
+                            tt = usersnap.key
+                        }
+                    })
+                    GlobalVariables.sharedManager.modeofpayment = "Cash On Delivery"
+                    self.clearCart()
                 }))
                 alertpayment.addAction(UIAlertAction(title: "PayPal", style: .default, handler: { (alertAction) -> Void in
                     let item1 = PayPalItem(name: "Brewit-tshirt", withQuantity: 2, withPrice: NSDecimalNumber(string: "84.99"), withCurrency: "USD", withSku: "BREWIT-0011")
@@ -331,41 +416,7 @@ class ListTableViewController: BaseViewController,UITableViewDelegate, UITableVi
                 
                 alertpayment.addAction(UIAlertAction(title: "Cancel ", style: .destructive, handler: nil))
                 self.present(alertpayment,animated: true,completion: nil)
-                self.clearCart()
-                let new = NSArray(array: self.tp)
-                let quant = NSArray(array: self.quantity)
-                let newmut = NSMutableArray(array: new)
-                let quantmut = NSMutableArray(array: quant)
-                var newStr = newmut as NSArray as? [String]
-                let quantStr = quantmut as NSArray as? [Int]
-                var strn = "\(newStr),\(quantStr)"
-                var time = String(Date().ticks)
                 
-                
-                //Store CoreData to Firebase
-                for i in 0...self.tp.count-1{
-                    var stre = "\(new[i]),\(quant[i])"
-                    self.ref.child("users").child(self.id).child("orders").child(time).child("Item: \(i)").setValue(stre)
-                    //self.ref.child("users").child(self.id).child("orders").child(time).childByAutoId().setValue(stre)
-                    print(stre)
-                }
-                
-                let qref = self.ref.child("users").child(self.id).child("orders").queryOrderedByKey()
-                var tt = ""
-                qref.observeSingleEvent(of: .value, with: { (snapshot) in
-                    for snap in snapshot.children{
-                        let usersnap = snap as! DataSnapshot
-                        tt = usersnap.key
-                    }
-                })
-                
-                //Instantiate PaymentViewController
-                self.openpayment?.openedpayment = { (barcode: String) in
-                    _ = self.navigationController?.popViewController(animated: true)
-                }
-                if let openpayment = self.openpayment{
-                    self.navigationController?.pushViewController(openpayment, animated: true)
-                }
             }))
            
             self.present(alertnew,animated: true,completion: nil)

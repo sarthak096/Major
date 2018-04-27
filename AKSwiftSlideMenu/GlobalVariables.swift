@@ -14,6 +14,7 @@ class GlobalVariables{
     public var orderarray : [String] = []
     public var orderscount : Int = 0
     public var item : String = ""
+    public var modeofpayment: String = ""
     
     class var sharedManager: GlobalVariables{
         struct Static{
