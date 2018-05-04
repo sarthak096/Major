@@ -14,10 +14,10 @@
             buildForArchiving = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "8220FC9D2397F116C59B51E92520D417"
-               BlueprintName = "Stripe"
+               BlueprintIdentifier = "406DD9FB1457416DE81F4D1C4F3B6D37"
+               BlueprintName = "ExpyTableView"
                ReferencedContainer = "container:Pods.xcodeproj"
-               BuildableName = "Stripe.framework">
+               BuildableName = "ExpyTableView.framework">
             </BuildableReference>
          </BuildActionEntry>
       </BuildActionEntries>

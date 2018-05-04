@@ -8,6 +8,7 @@
 
 import UIKit
 import ChameleonFramework
+import Firebase
 
 // HomeViewController to scan the barcode
 class HomeVC: BaseViewController {
@@ -19,6 +20,8 @@ class HomeVC: BaseViewController {
     var pageImages: NSArray!
     var pageViewController: UIPageViewController!
     public var openedHome: ((String) -> ())?
+    var ref: DatabaseReference! = Database.database().reference()
+    var Uid:String = (Auth.auth().currentUser?.uid)!
     
     //Load the viewcontroller
     override func viewDidLoad() {
@@ -31,6 +34,10 @@ class HomeVC: BaseViewController {
         scanButton.layer.cornerRadius = 0.2 * scanButton.bounds.size.width
         scanButton.clipsToBounds = true
         self.navigationItem.setHidesBackButton(true, animated: true)
+        ref.child("users").child(Uid).child("orders").observeSingleEvent(of: .value, with: { (DataSnapshot) in
+            GlobalVariables.sharedManager.orderscount = Int(DataSnapshot.childrenCount)
+            print(GlobalVariables.sharedManager.orderscount)
+        })
     }
     
     override func didReceiveMemoryWarning() {

@@ -33,11 +33,13 @@ class SignUpViewController : UIViewController,UITextFieldDelegate{
         mobileNum.delegate = self
         emailTextField.delegate = self
         passwordTextField.delegate = self
+        
         firstName.tag = 0
         mobileNum.tag = 1
         emailTextField.tag = 2
         passwordTextField.tag = 3
         signUp.tag = 4
+        
         firstName.returnKeyType = UIReturnKeyType.next
         mobileNum.returnKeyType = UIReturnKeyType.next
         emailTextField.returnKeyType = UIReturnKeyType.next

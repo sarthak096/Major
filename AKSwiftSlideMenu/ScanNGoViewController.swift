@@ -76,6 +76,7 @@ class ScanNGoViewController: UIViewController, AVCaptureMetadataOutputObjectsDel
             captureSession.addOutput(captureMetadataOutput)
             
             captureMetadataOutput.setMetadataObjectsDelegate(self, queue: DispatchQueue.main)
+            //Defining the type of data to be scanned
             captureMetadataOutput.metadataObjectTypes = [AVMetadataObject.ObjectType.upce,
                                                          AVMetadataObject.ObjectType.aztec,
                                                          AVMetadataObject.ObjectType.code128,

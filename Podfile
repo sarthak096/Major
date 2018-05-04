@@ -2,9 +2,10 @@
 platform :ios, '11.3'
 
 target 'AKSwiftSlideMenu' do
-    pod 'PayPal-iOS-SDK'
-  # Comment the next line if you're not using Swift and don't want to use dynamic frameworks
-  use_frameworks!
+#pod for PayPal Payment
+pod 'PayPal-iOS-SDK'
+# Comment the next line if you're not using Swift and don't want to use dynamic frameworks
+use_frameworks!
 
 # pod for firebase
 pod 'Firebase/Database'
@@ -14,8 +15,12 @@ pod 'Firebase/Auth'
 pod 'BWWalkthrough'
 #pod for color framework
 pod 'ChameleonFramework/Swift', :git => 'https://github.com/ViccAlexander/Chameleon.git'
+#pod for Stripe Payment
 pod 'Stripe'
+#pod for scanning the card
 pod 'CardIO'
+#pod for collapsable tableview
+pod 'ExpyTableView'
 
 
 end

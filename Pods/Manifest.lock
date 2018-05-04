@@ -4,6 +4,7 @@ PODS:
   - ChameleonFramework/Default (2.1.0)
   - ChameleonFramework/Swift (2.1.0):
     - ChameleonFramework/Default
+  - ExpyTableView (1.0)
   - Firebase/Auth (4.10.1):
     - Firebase/Core
     - FirebaseAuth (= 4.4.4)
@@ -59,6 +60,7 @@ DEPENDENCIES:
   - BWWalkthrough
   - CardIO
   - ChameleonFramework/Swift (from `https://github.com/ViccAlexander/Chameleon.git`)
+  - ExpyTableView
   - Firebase/Auth
   - Firebase/Core
   - Firebase/Database
@@ -78,6 +80,7 @@ SPEC CHECKSUMS:
   BWWalkthrough: 6b18dc688ff6b7168383fee07fe199ccaad7e9f7
   CardIO: 56983b39b62f495fc6dae9ad7cf875143df06443
   ChameleonFramework: d21a3cc247abfe5e37609a283a8238b03575cf64
+  ExpyTableView: 75fe6494d4613fd3dc4bd965cce6e14cec7e2223
   Firebase: 92c6ba593e32db0defde464a9adc981d5cb49f97
   FirebaseAnalytics: 3dfae28d4a5e06f86c4fae830efc2ad3fadb19bc
   FirebaseAuth: d040bb7a9db6dfc29d0e7ec82d48be51352b2581
@@ -91,6 +94,6 @@ SPEC CHECKSUMS:
   PayPal-iOS-SDK: 10654cd111e911a9807bddb96fae81aacb8e9915
   Stripe: 3230cdf8a8b0c04902e45e86f222fb82a926239c
 
-PODFILE CHECKSUM: f42d92ad815c9e8c05612cf8a134a694c20557d6
+PODFILE CHECKSUM: 577901dd8f1b2d1ef43ae90a14814d98f3d22188
 
 COCOAPODS: 1.4.0

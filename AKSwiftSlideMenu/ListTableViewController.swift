@@ -13,7 +13,7 @@ import Stripe
 
 class ListTableViewController: BaseViewController,UITableViewDelegate, UITableViewDataSource, PayPalPaymentDelegate,STPAddCardViewControllerDelegate,CardIOPaymentViewControllerDelegate{
     
-    
+    //Functions for the Stripe Payment
     func userDidCancel(_ paymentViewController: CardIOPaymentViewController!) {
         paymentViewController?.dismiss(animated: true, completion: nil)
     }
@@ -23,7 +23,7 @@ class ListTableViewController: BaseViewController,UITableViewDelegate, UITableVi
     }
     
     
-    
+    //Functions for the PayPal Payment
     func addCardViewControllerDidCancel(_ addCardViewController: STPAddCardViewController) {
          navigationController?.popViewController(animated: true)
     }
@@ -70,8 +70,7 @@ class ListTableViewController: BaseViewController,UITableViewDelegate, UITableVi
         else{
             } 
         }
-    
-    
+
     func payPalPaymentDidCancel(_ paymentViewController: PayPalPaymentViewController) {
         print("PayPal Payment Cancelled")
         paymentViewController.dismiss(animated: true, completion: nil)
@@ -372,7 +371,7 @@ class ListTableViewController: BaseViewController,UITableViewDelegate, UITableVi
                             tt = usersnap.key
                         }
                     })
-                    GlobalVariables.sharedManager.modeofpayment = "Cash On Delivery"
+                    GlobalVariables.sharedManager.modeofpayment = "Cash"
                     self.clearCart()
                 }))
                 alertpayment.addAction(UIAlertAction(title: "PayPal", style: .default, handler: { (alertAction) -> Void in

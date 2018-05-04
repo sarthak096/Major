@@ -22,6 +22,7 @@ class LoginViewController: UIViewController,UITextFieldDelegate{
     //Load ViewController
     override func viewDidLoad() {
         super.viewDidLoad()
+        
         //Set Gradient Background
         let colors:[UIColor] = [UIColor.flatRedDark,UIColor.flatOrange]
         view.backgroundColor = GradientColor(.topToBottom, frame: view.frame, colors: colors)

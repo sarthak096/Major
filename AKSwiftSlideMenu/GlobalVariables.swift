@@ -15,7 +15,7 @@ class GlobalVariables{
     public var orderscount : Int = 0
     public var item : String = ""
     public var modeofpayment: String = ""
-    
+    public var orderlist : [String] = []
     class var sharedManager: GlobalVariables{
         struct Static{
             static let instance = GlobalVariables()

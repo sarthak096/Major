@@ -19,9 +19,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     var window: UIWindow?
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
-        // Override point for customization after application launch.
+        //To initializa the Stripe payment
         STPPaymentConfiguration.shared().publishableKey = "pk_test_94ZtCFJ3sRtRKr4VNRfPfYAo"
+        //To initializa the Paypal payment
         PayPalMobile .initializeWithClientIds(forEnvironments: [PayPalEnvironmentProduction:"AagtePaLT6mAp-tcAfEm5gsrt_5d4PDD3OIsIDnj9IhaFxyqmKkeEAJgIB8upDjooQSJFdecDQKZnyx5", PayPalEnvironmentSandbox: "kapadiya.sarrhak-facilitator@gmail.com"])
+        // Override point for customization after application launch.
         FirebaseApp.configure()
         Database.database().isPersistenceEnabled = true
         // Skip login on every launch if user has already logged in on the same device
@@ -80,6 +82,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         // increase the launch time for launchscreen
         Thread.sleep(forTimeInterval : 4.0)
     }
+    //method to handle 3D touch on app icon
     func application(_ application: UIApplication, performActionFor shortcutItem: UIApplicationShortcutItem, completionHandler: @escaping (Bool) -> Void) {
         if Auth.auth().currentUser !== nil{
             let rootController = UIStoryboard(name: "Main", bundle: Bundle.main).instantiateViewController(withIdentifier: "abc")
