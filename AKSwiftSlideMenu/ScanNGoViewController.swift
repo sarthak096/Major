@@ -215,6 +215,7 @@ class ScanNGoViewController: UIViewController, AVCaptureMetadataOutputObjectsDel
                             self.present(alertok, animated: true, completion:nil)
                         }
                         else {
+                            
                             let nameToSave = metadataObj.stringValue!
                             let quantityToSave = Int(firstTextField.text!)
                             self.save(itemname: nameToSave,itemquantity: quantityToSave!)

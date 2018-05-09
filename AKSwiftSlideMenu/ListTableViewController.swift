@@ -26,6 +26,7 @@ class ListTableViewController: BaseViewController,UITableViewDelegate, UITableVi
     //Functions for the PayPal Payment
     func addCardViewControllerDidCancel(_ addCardViewController: STPAddCardViewController) {
          navigationController?.popViewController(animated: true)
+        
     }
     
     func addCardViewController(_ addCardViewController: STPAddCardViewController, didCreateToken token: STPToken, completion: @escaping STPErrorBlock) {
@@ -195,7 +196,7 @@ class ListTableViewController: BaseViewController,UITableViewDelegate, UITableVi
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        totalLabel.text = String(GlobalVariables.sharedManager.totalprice)
+        totalLabel.text = "$" + String(GlobalVariables.sharedManager.totalprice)
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -238,7 +239,7 @@ class ListTableViewController: BaseViewController,UITableViewDelegate, UITableVi
             let totalprice  = Int(finalprice)
             GlobalVariables.sharedManager.tempprice = totalprice
             cell.textLabel?.text = "Item : " + qdesc 
-            cell.detailTextLabel?.text = "Quantity : " + str + "    ,   Price : " + price
+            cell.detailTextLabel?.text = "Quantity : " + str + "    ,   Price : $" + price
             GlobalVariables.sharedManager.totalprice = GlobalVariables.sharedManager.totalprice + GlobalVariables.sharedManager.tempprice
             print(GlobalVariables.sharedManager.totalprice)
         })
@@ -259,7 +260,30 @@ class ListTableViewController: BaseViewController,UITableViewDelegate, UITableVi
         let managedContext = appDelegate.persistentContainer.viewContext
         if editingStyle == .delete {
             let objectdelete = pcart[indexPath.row]
+            let new1 : String = (objectdelete.value(forKey: "itemname") as? String)!
+            let new: Int = (objectdelete.value(forKey: "itemquantity") as? Int)!
+            let str = String(new)
+            let intstr = Int(str)
             pcart.remove(at: indexPath.row)
+            print("REMOVE")
+            print(GlobalVariables.sharedManager.totalprice)
+            ref.child("Database").child(new1).observeSingleEvent(of: .value, with: { DataSnapshot in
+                if !DataSnapshot.exists(){
+                    return
+                }
+                let userDict = DataSnapshot.value as! [String: Any]
+                let qprice = userDict["Price"] as! String
+                let qdesc = userDict["Description"] as! String
+                let intprice = Int(qprice)
+                let finalprice  = intstr! * intprice!
+                let price = String(finalprice)
+                let totalprice  = Int(finalprice)
+                GlobalVariables.sharedManager.tempprice = totalprice
+                GlobalVariables.sharedManager.totalprice = GlobalVariables.sharedManager.totalprice - GlobalVariables.sharedManager.tempprice
+                print(GlobalVariables.sharedManager.totalprice)
+                self.totalLabel.text = "$" + String(GlobalVariables.sharedManager.totalprice)
+            })
+            
             managedContext.delete(objectdelete)
             do{
                 try appDelegate.saveContext()
@@ -267,6 +291,7 @@ class ListTableViewController: BaseViewController,UITableViewDelegate, UITableVi
             }
             catch let error as NSError{
             }
+            self.tableView.reloadData()
         }
     }
     
@@ -314,7 +339,8 @@ class ListTableViewController: BaseViewController,UITableViewDelegate, UITableVi
         alertView.addAction(UIAlertAction(title: "No", style: .destructive, handler: nil))
         alertView.addAction(UIAlertAction(title: "Clear", style: .default, handler: { (alertAction) -> Void in
             self.clearCart()
-            self.totalLabel.text = ""
+            if self.pcart.count <= 0 {
+                self.totalLabel.text = "0"}
         }))
         present(alertView, animated: true, completion: nil)
     }
@@ -380,18 +406,19 @@ class ListTableViewController: BaseViewController,UITableViewDelegate, UITableVi
                     let item3 = PayPalItem(name: "Brewit-cup", withQuantity: 1, withPrice: NSDecimalNumber(string: "37.99"), withCurrency: "USD", withSku: "BREWIT-0091")
                     
                     let items = [item1, item2, item3]
-                    let subtotal = PayPalItem.totalPrice(forItems: items) //This is the total price of all the items
-                    
+                    //let subtotal = PayPalItem.totalPrice(forItems: items) //This is the total price of all the items
+                    let amt = NSDecimalNumber(integerLiteral: GlobalVariables.sharedManager.totalprice)
+                    print(amt)
                     // Optional: include payment details
-                    let shipping = NSDecimalNumber(string: "5.99")
-                    let tax = NSDecimalNumber(string: "2.50")
-                    let paymentDetails = PayPalPaymentDetails(subtotal: subtotal, withShipping: shipping, withTax: tax)
+                    let shipping = NSDecimalNumber(string: "5")
+                    let tax = NSDecimalNumber(string: "2")
+                    let paymentDetails = PayPalPaymentDetails(subtotal: amt, withShipping: shipping, withTax: tax)
                     
-                    let total = subtotal.adding(shipping).adding(tax) //This is the total price including shipping and tax
+                    let total = amt.adding(shipping).adding(tax) //This is the total price including shipping and tax
                     
                     let payment = PayPalPayment(amount: total, currencyCode: "USD", shortDescription: "Total", intent: .sale)
                     
-                    payment.items = items
+                    //payment.items = items
                     payment.paymentDetails = paymentDetails
                     
                     if (payment.processable) {
