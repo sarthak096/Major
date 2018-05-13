@@ -16,6 +16,7 @@ class GlobalVariables{
     public var item : String = ""
     public var modeofpayment: String = ""
     public var orderlist : [String] = []
+    public var tempquant : Int  = 0
     class var sharedManager: GlobalVariables{
         struct Static{
             static let instance = GlobalVariables()

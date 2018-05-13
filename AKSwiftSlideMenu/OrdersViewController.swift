@@ -8,6 +8,7 @@
 
 import UIKit
 import Firebase
+import CRRefresh
 
 class OrdersViewController: BaseViewController, UITableViewDelegate, UITableViewDataSource{
     
@@ -22,6 +23,7 @@ class OrdersViewController: BaseViewController, UITableViewDelegate, UITableView
     var arr:[String] = []
     var arrquant:[String] = []
     var new:[String] = []
+    var paymode:[String] = []
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -33,12 +35,21 @@ class OrdersViewController: BaseViewController, UITableViewDelegate, UITableView
         tableView.allowsSelection = false
         NotificationCenter.default.addObserver(self, selector: #selector(loadList), name: NSNotification.Name(rawValue: "load"), object: nil)
         tableView.rowHeight = 110.0
+        tableView.cr.addHeadRefresh(animator: NormalHeaderAnimator()){[weak self] in
+            self?.ref.child("users").child((self?.Uid)!).child("orders").observeSingleEvent(of: .value, with: { (DataSnapshot) in
+                GlobalVariables.sharedManager.orderscount = Int(DataSnapshot.childrenCount)
+                print(GlobalVariables.sharedManager.orderscount)
+                print("Load")
+            })
+            
+            DispatchQueue.main.asyncAfter(deadline: .now() + 2, execute: {
+                self?.tableView.cr.endHeaderRefresh()
+            })
+            self?.tableView.reloadData()
+        }
+        tableView.cr.beginHeaderRefresh()
         print("opened")
-        ref.child("users").child(Uid).child("orders").observeSingleEvent(of: .value, with: { (DataSnapshot) in
-            GlobalVariables.sharedManager.orderscount = Int(DataSnapshot.childrenCount)
-             print(GlobalVariables.sharedManager.orderscount)
-            print("Load")
-        })
+        
        
     }
     //Reload TableView
@@ -49,21 +60,15 @@ class OrdersViewController: BaseViewController, UITableViewDelegate, UITableView
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        
-        /*
-        ref.child("users").child(Uid).child("orders").observe(.value, with: { (DataSnapshot) in
-            GlobalVariables.sharedManager.orderscount = Int(DataSnapshot.childrenCount)
-        })*/
-        ref.child("users").child(Uid).child("orders").observeSingleEvent(of: .value, with: { (DataSnapshot) in
-            GlobalVariables.sharedManager.orderscount = Int(DataSnapshot.childrenCount)
-            print(GlobalVariables.sharedManager.orderscount)
-        })
         print("1new")
     }
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        
+        ref.child("users").child(Uid).child("orders").observeSingleEvent(of: .value, with: { (DataSnapshot) in
+            GlobalVariables.sharedManager.orderscount = Int(DataSnapshot.childrenCount)
+            print(GlobalVariables.sharedManager.orderscount)
+        })
     }
     
     override func didReceiveMemoryWarning() {
@@ -71,6 +76,18 @@ class OrdersViewController: BaseViewController, UITableViewDelegate, UITableView
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        if GlobalVariables.sharedManager.orderscount > 0 {
+            tableView.backgroundView = nil
+            tableView.separatorStyle = .singleLine
+        }
+        else {
+            let noDataLabel: UILabel     = UILabel(frame: CGRect(x: 0, y: 0, width: tableView.bounds.size.width, height: tableView.bounds.size.height))
+            noDataLabel.text          = "No Order History"
+            noDataLabel.textColor     = UIColor.black
+            noDataLabel.textAlignment = .center
+            tableView.backgroundView  = noDataLabel
+            tableView.separatorStyle  = .none
+        }
      return GlobalVariables.sharedManager.orderscount
     print("11")
     }
@@ -102,13 +119,15 @@ class OrdersViewController: BaseViewController, UITableViewDelegate, UITableView
             newref.observe(.value, with: { (snapshot) in
                 let newcount = snapshot.childrenCount
                 let userDictt = snapshot.value as! [String: Any]
-                for i in 0...newcount-1{
+                let mode = userDictt["Payment mode: "] as! String
+                for i in 0...newcount-2{
                     let price = userDictt["Item: \(i)"] as! String
                     var delimiter = ","
                     var newstr = price
                     var token = newstr.components(separatedBy: delimiter)
                     self.arr.append(token[0])
                     self.arrquant.append(token[1])
+                    self.paymode.append(mode)
                     let temp = token[0]
                    
                     self.ref.child("Database").child(temp).observeSingleEvent(of: .value, with: { DataSnapshot in
@@ -126,11 +145,12 @@ class OrdersViewController: BaseViewController, UITableViewDelegate, UITableView
                 }
                 print("FInal")
                 print(self.new)
-                var string = self.new.joined(separator:"\n")
+                var string = self.new.joined(separator:"\n") + "\n" + "Payment Mode: " + mode
                 cell.detailTextLabel?.numberOfLines = 10
                 cell.detailTextLabel?.text = string
                 self.new.removeAll()
                 self.arr.removeAll()
+                self.paymode.removeAll()
                 self.arrquant.removeAll()
             })
         })

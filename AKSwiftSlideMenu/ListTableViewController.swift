@@ -45,7 +45,29 @@ class ListTableViewController: BaseViewController,UITableViewDelegate, UITableVi
             //Store CoreData to Firebase
             for i in 0...self.tp.count-1{
                 var stre = "\(new[i]),\(quant[i])"
+                let id = new[i] as! String
+                let qua = quant[i] as! Int
+                self.ref.child("Database").child(id).observeSingleEvent(of: .value, with: { DataSnapshot in
+                    if !DataSnapshot.exists(){
+                        return
+                    }
+                    let userDict = DataSnapshot.value as! [String: Any]
+                    //let qdesc = userDict["Description"] as! String
+                    //let qprice = userDict["Price"] as! String
+                    let quanti = userDict["Quantity"] as! Int
+                    print("qua")
+                    print(Int(quanti))
+                    GlobalVariables.sharedManager.tempquant = Int(quanti) - Int(qua)
+                    print (GlobalVariables.sharedManager.tempquant)
+                    let qat = GlobalVariables.sharedManager.tempquant
+                    self.ref.child("Database").child(id).child("Quantity").setValue(qat)
+                })
+                GlobalVariables.sharedManager.modeofpayment = "Online"
                 self.ref.child("users").child(self.id).child("orders").child(time).child("Item: \(i)").setValue(stre)
+                let pay = GlobalVariables.sharedManager.modeofpayment
+                self.ref.child("users").child(self.id).child("orders").child(time).child("Payment mode: ").setValue(pay)
+                
+                
                 //self.ref.child("users").child(self.id).child("orders").child(time).childByAutoId().setValue(stre)
                 print(stre)
             }
@@ -65,7 +87,8 @@ class ListTableViewController: BaseViewController,UITableViewDelegate, UITableVi
             
                 alertController.addAction(alertAction)
                 self.present(alertController, animated: true)
-                GlobalVariables.sharedManager.modeofpayment = "Online"
+                //GlobalVariables.sharedManager.totalprice = 0
+                //self.totalLabel.text = "$" + String(GlobalVariables.sharedManager.totalprice)
                 self.clearCart()
         }// 2
         else{
@@ -92,7 +115,28 @@ class ListTableViewController: BaseViewController,UITableViewDelegate, UITableVi
         //Store CoreData to Firebase
         for i in 0...self.tp.count-1{
             var stre = "\(new[i]),\(quant[i])"
+            let id = new[i] as! String
+            let qua = quant[i] as! Int
+            self.ref.child("Database").child(id).observeSingleEvent(of: .value, with: { DataSnapshot in
+                if !DataSnapshot.exists(){
+                    return
+                }
+                let userDict = DataSnapshot.value as! [String: Any]
+                //let qdesc = userDict["Description"] as! String
+                //let qprice = userDict["Price"] as! String
+                let quanti = userDict["Quantity"] as! Int
+                print("qua")
+                print(Int(quanti))
+                GlobalVariables.sharedManager.tempquant = Int(quanti) - Int(qua)
+                print (GlobalVariables.sharedManager.tempquant)
+                let qat = GlobalVariables.sharedManager.tempquant
+                self.ref.child("Database").child(id).child("Quantity").setValue(qat)
+            })
+            GlobalVariables.sharedManager.modeofpayment = "Online"
             self.ref.child("users").child(self.id).child("orders").child(time).child("Item: \(i)").setValue(stre)
+            let pay = GlobalVariables.sharedManager.modeofpayment
+            self.ref.child("users").child(self.id).child("orders").child(time).child("Payment mode: ").setValue(pay)
+            
             //self.ref.child("users").child(self.id).child("orders").child(time).childByAutoId().setValue(stre)
             print(stre)
         }
@@ -105,7 +149,8 @@ class ListTableViewController: BaseViewController,UITableViewDelegate, UITableVi
                 tt = usersnap.key
             }
         })
-        GlobalVariables.sharedManager.modeofpayment = "Online"
+        GlobalVariables.sharedManager.totalprice = 0
+        self.totalLabel.text = "$" + String(GlobalVariables.sharedManager.totalprice)
         self.clearCart()
         paymentViewController.dismiss(animated: true, completion: { () -> Void in
             // send completed confirmaion to your server
@@ -384,7 +429,30 @@ class ListTableViewController: BaseViewController,UITableViewDelegate, UITableVi
                     //Store CoreData to Firebase
                     for i in 0...self.tp.count-1{
                         var stre = "\(new[i]),\(quant[i])"
+                        let id = new[i] as! String
+                        let qua = quant[i] as! Int
+                        self.ref.child("Database").child(id).observeSingleEvent(of: .value, with: { DataSnapshot in
+                            if !DataSnapshot.exists(){
+                                return
+                            }
+                            let userDict = DataSnapshot.value as! [String: Any]
+                            //let qdesc = userDict["Description"] as! String
+                            //let qprice = userDict["Price"] as! String
+                            let quanti = userDict["Quantity"] as! Int
+                            print("qua")
+                            print(Int(quanti))
+                            GlobalVariables.sharedManager.tempquant = Int(quanti) - Int(qua)
+                            print (GlobalVariables.sharedManager.tempquant)
+                            let qat = GlobalVariables.sharedManager.tempquant
+                            self.ref.child("Database").child(id).child("Quantity").setValue(qat)
+                        })
+                        GlobalVariables.sharedManager.modeofpayment = "Cash"
+                        let pay = GlobalVariables.sharedManager.modeofpayment
                         self.ref.child("users").child(self.id).child("orders").child(time).child("Item: \(i)").setValue(stre)
+                        self.ref.child("users").child(self.id).child("orders").child(time).child("Payment mode: ").setValue(pay)
+                        
+
+                        
                         //self.ref.child("users").child(self.id).child("orders").child(time).childByAutoId().setValue(stre)
                         print(stre)
                     }
@@ -397,7 +465,8 @@ class ListTableViewController: BaseViewController,UITableViewDelegate, UITableVi
                             tt = usersnap.key
                         }
                     })
-                    GlobalVariables.sharedManager.modeofpayment = "Cash"
+                    GlobalVariables.sharedManager.totalprice = 0
+                    self.totalLabel.text = "$" + String(GlobalVariables.sharedManager.totalprice)
                     self.clearCart()
                 }))
                 alertpayment.addAction(UIAlertAction(title: "PayPal", style: .default, handler: { (alertAction) -> Void in

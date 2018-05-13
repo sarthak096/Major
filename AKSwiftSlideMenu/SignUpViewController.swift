@@ -77,7 +77,7 @@ class SignUpViewController : UIViewController,UITextFieldDelegate{
     
     //Function to check the valid input string for Contact
     func isNumberValidInput(Input:String) -> Bool {
-        let myCharSet=CharacterSet(charactersIn:"0123456789")
+        let myCharSet=CharacterSet(charactersIn:"0123456789 ")
         let output: String = Input.trimmingCharacters(in: myCharSet.inverted)
         let isValid: Bool = (Input == output)
         return isValid

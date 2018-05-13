@@ -21,6 +21,7 @@ pod 'Stripe'
 pod 'CardIO'
 #pod for collapsable tableview
 pod 'ExpyTableView'
-
+#pod for pull to refresh
+pod 'CRRefresh'
 
 end

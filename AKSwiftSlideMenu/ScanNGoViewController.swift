@@ -200,7 +200,7 @@ class ScanNGoViewController: UIViewController, AVCaptureMetadataOutputObjectsDel
                     }
                     let cancelAction = UIAlertAction(title: "Add", style: .default) { (alert: UIAlertAction!) -> Void in
                         let alertok = UIAlertController(title: "Invalid quantity.", message: "Please scan again and enter a valid quantity", preferredStyle: .alert)
-                        if self.isNumberValidInput(Input: firstTextField.text!) == false{
+                        if self.isNumberValidInput(Input: firstTextField.text!) == false || firstTextField.text == ""{
                             let okAction =  UIAlertAction(title: "OK", style: .default, handler: { (alert: UIAlertAction!) in
                                 self.newView?.appDone = { (barcode: String) in
                                     _ = self.navigationController?.popViewController(animated: true)
