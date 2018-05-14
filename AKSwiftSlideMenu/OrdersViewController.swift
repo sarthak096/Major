@@ -24,6 +24,8 @@ class OrdersViewController: BaseViewController, UITableViewDelegate, UITableView
     var arrquant:[String] = []
     var new:[String] = []
     var paymode:[String] = []
+    var info : PaymentViewController?
+
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -32,7 +34,6 @@ class OrdersViewController: BaseViewController, UITableViewDelegate, UITableView
                            forCellReuseIdentifier: "Order Cell")
         tableView.delegate = self
         tableView.dataSource = self
-        tableView.allowsSelection = false
         NotificationCenter.default.addObserver(self, selector: #selector(loadList), name: NSNotification.Name(rawValue: "load"), object: nil)
         tableView.rowHeight = 110.0
         tableView.cr.addHeadRefresh(animator: NormalHeaderAnimator()){[weak self] in
@@ -49,7 +50,7 @@ class OrdersViewController: BaseViewController, UITableViewDelegate, UITableView
         }
         tableView.cr.beginHeaderRefresh()
         print("opened")
-        
+        info = self.storyboard!.instantiateViewController(withIdentifier: "Payment") as? PaymentViewController
        
     }
     //Reload TableView
@@ -120,7 +121,7 @@ class OrdersViewController: BaseViewController, UITableViewDelegate, UITableView
                 let newcount = snapshot.childrenCount
                 let userDictt = snapshot.value as! [String: Any]
                 let mode = userDictt["Payment mode: "] as! String
-                for i in 0...newcount-2{
+                for i in 0...newcount-3{
                     let price = userDictt["Item: \(i)"] as! String
                     var delimiter = ","
                     var newstr = price
@@ -160,6 +161,24 @@ class OrdersViewController: BaseViewController, UITableViewDelegate, UITableView
 
     func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
         return true
+    }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        self.info?.infoview = { (barcode: String) in
+            GlobalVariables.sharedManager.ordercode = GlobalVariables.sharedManager.orderarray[indexPath.row]
+            print(GlobalVariables.sharedManager.ordercode)
+            _ = self.navigationController?.popViewController(animated: true)
+            print("see")
+            self.tableView.reloadData()
+            
+        }
+        if let info = self.info{
+            GlobalVariables.sharedManager.ordercode = GlobalVariables.sharedManager.orderarray[indexPath.row]
+            print(GlobalVariables.sharedManager.ordercode)
+            print("This")
+            self.navigationController?.pushViewController(info, animated: true)
+            self.tableView.reloadData()
+        }
     }
 }
 

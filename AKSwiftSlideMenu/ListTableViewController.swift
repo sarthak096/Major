@@ -62,10 +62,12 @@ class ListTableViewController: BaseViewController,UITableViewDelegate, UITableVi
                     let qat = GlobalVariables.sharedManager.tempquant
                     self.ref.child("Database").child(id).child("Quantity").setValue(qat)
                 })
-                GlobalVariables.sharedManager.modeofpayment = "Online"
+                let modeamt = GlobalVariables.sharedManager.totalprice
+                GlobalVariables.sharedManager.modeofpayment = "Online - \(modeamt)"
                 self.ref.child("users").child(self.id).child("orders").child(time).child("Item: \(i)").setValue(stre)
                 let pay = GlobalVariables.sharedManager.modeofpayment
                 self.ref.child("users").child(self.id).child("orders").child(time).child("Payment mode: ").setValue(pay)
+                self.ref.child("users").child(self.id).child("orders").child(time).child("Verified: ").setValue("No")
                 
                 
                 //self.ref.child("users").child(self.id).child("orders").child(time).childByAutoId().setValue(stre)
@@ -132,11 +134,12 @@ class ListTableViewController: BaseViewController,UITableViewDelegate, UITableVi
                 let qat = GlobalVariables.sharedManager.tempquant
                 self.ref.child("Database").child(id).child("Quantity").setValue(qat)
             })
-            GlobalVariables.sharedManager.modeofpayment = "Online"
+            let modeamt = GlobalVariables.sharedManager.totalprice
+            GlobalVariables.sharedManager.modeofpayment = "Online - \(modeamt)"
             self.ref.child("users").child(self.id).child("orders").child(time).child("Item: \(i)").setValue(stre)
             let pay = GlobalVariables.sharedManager.modeofpayment
             self.ref.child("users").child(self.id).child("orders").child(time).child("Payment mode: ").setValue(pay)
-            
+            self.ref.child("users").child(self.id).child("orders").child(time).child("Verified: ").setValue("No")
             //self.ref.child("users").child(self.id).child("orders").child(time).childByAutoId().setValue(stre)
             print(stre)
         }
@@ -446,10 +449,12 @@ class ListTableViewController: BaseViewController,UITableViewDelegate, UITableVi
                             let qat = GlobalVariables.sharedManager.tempquant
                             self.ref.child("Database").child(id).child("Quantity").setValue(qat)
                         })
-                        GlobalVariables.sharedManager.modeofpayment = "Cash"
+                        let modeamt = GlobalVariables.sharedManager.totalprice
+                        GlobalVariables.sharedManager.modeofpayment = "Cash - \(modeamt)"
                         let pay = GlobalVariables.sharedManager.modeofpayment
                         self.ref.child("users").child(self.id).child("orders").child(time).child("Item: \(i)").setValue(stre)
                         self.ref.child("users").child(self.id).child("orders").child(time).child("Payment mode: ").setValue(pay)
+                        self.ref.child("users").child(self.id).child("orders").child(time).child("Verified: ").setValue("No")
                         
 
                         
